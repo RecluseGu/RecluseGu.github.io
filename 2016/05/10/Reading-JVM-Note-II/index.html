@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  
+  <title>深入理解Java JVM 读书笔记（二）Java对象 | Crazy Guge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在介绍完Java虚拟机运行时数据区域后，大致知道了虚拟机各部分存储什么内容，本部分内容将介绍虚拟机中对象的创建过程、对象内存布局以及如何访问。本部分内容讨论的都以HotSpot虚拟机中的Java堆为例，对象仅限于Java普通对象，不包括数组、Class对象等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解Java JVM 读书笔记（二）Java对象">
+<meta property="og:url" content="http://yoursite.com/2016/05/10/Reading-JVM-Note-II/index.html">
+<meta property="og:site_name" content="Crazy Guge">
+<meta property="og:description" content="在介绍完Java虚拟机运行时数据区域后，大致知道了虚拟机各部分存储什么内容，本部分内容将介绍虚拟机中对象的创建过程、对象内存布局以及如何访问。本部分内容讨论的都以HotSpot虚拟机中的Java堆为例，对象仅限于Java普通对象，不包括数组、Class对象等。">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/b36cd9dbgw1f3y8p4xzp1j20cg05q3z6.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/b36cd9dbgw1f3y8pj7gwkj20dk064dg0.jpg">
+<meta property="og:updated_time" content="2016-05-24T05:13:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解Java JVM 读书笔记（二）Java对象">
+<meta name="twitter:description" content="在介绍完Java虚拟机运行时数据区域后，大致知道了虚拟机各部分存储什么内容，本部分内容将介绍虚拟机中对象的创建过程、对象内存布局以及如何访问。本部分内容讨论的都以HotSpot虚拟机中的Java堆为例，对象仅限于Java普通对象，不包括数组、Class对象等。">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/b36cd9dbgw1f3y8p4xzp1j20cg05q3z6.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  
+  
+  
+      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+  
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false,
+          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
+      }
+  </script>
+
+  
+      <script>
+          yiliaConfig.rootUrl = "/";
+      </script>
+  
+
+  
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Recluse</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">游荡在城市夜空中的代码狗兼萨迷</p>
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:reclusegu1218@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://weibo.com/reclusegu" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/reclusegu" title="GitHub"></a>
+                            
+                                <a class="fa Instagram" target="_blank" href="https://www.instagram.com/reclusegu1992" title="Instagram"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Category/">Category</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Error/">Error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIView/">UIView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存区域/">内存区域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/垃圾回收/">垃圾回收</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">不要问我是谁，我只是游荡在杭城夜空中的代码狗兼萨迷。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Recluse</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Recluse</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">游荡在城市夜空中的代码狗兼萨迷</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:reclusegu1218@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://weibo.com/reclusegu" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/reclusegu" title="GitHub"></a>
+                            
+                                <a class="fa Instagram" target="_blank" href="https://www.instagram.com/reclusegu1992" title="Instagram"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Reading-JVM-Note-II" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/10/Reading-JVM-Note-II/" class="article-date">
+      <time datetime="2016-05-10T15:36:51.000Z" itemprop="datePublished">2016-05-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入理解Java JVM 读书笔记（二）Java对象
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/术业专攻/">术业专攻</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/对象/">对象</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>在介绍完Java虚拟机运行时数据区域后，大致知道了虚拟机各部分存储什么内容，本部分内容将介绍虚拟机中对象的创建过程、对象内存布局以及如何访问。本部分内容讨论的都以HotSpot虚拟机中的Java堆为例，对象仅限于Java普通对象，不包括数组、Class对象等。<br><a id="more"></a></p>
+</blockquote>
+<h2 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h2><p>在编写Java程序时，我们创建对象是通常用new关键字，而在虚拟机中的创建过程大致分为四个步骤；</p>
+<h3 id="类加载检查"><a href="#类加载检查" class="headerlink" title="类加载检查"></a>类加载检查</h3><p>虚拟机遇到一条new指令是，会先去检查这个指令的参数是否能在常量池中定位到这个类的符号引用，并且检查这个符号引用代表的类是否被加载、解析和初始化过。如果没有则先执行类加载过程；</p>
+<h3 id="为新生对象分配内存"><a href="#为新生对象分配内存" class="headerlink" title="为新生对象分配内存"></a>为新生对象分配内存</h3><p>在类加载过程通过后，虚拟机会为新生对象分配内存，对象所需内存大小可在类加载完成后确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来；</p>
+<p>两种分配方式：使用哪种方式是由Java对是否规整决定，而Java堆是否规整由所采用的垃圾收集器是否带有压缩整理功能决定。</p>
+<ol>
+<li><p>指针碰撞<br>假设Java堆中<strong>内存是绝对规整</strong>的，所有用过的内存在一边，空闲的内存在另一边，中间放着一个指针作为分界点的指示器，那所分配的内存就仅仅是把该指针向空闲空间那边挪动一段与对象大小相等的距离，这种方式成为指针碰撞。</p>
+</li>
+<li><p>空闲列表<br>如如果Java堆中<strong>内存是不规整</strong>的,已使用的内存和空闲内存相互交错，则虚拟机就必须维护一个列表，记录可使用的内存，在分配的时候在列表中找到足够大的内存空间分配给对象，并更新列表上的记录，这种分配方式称为空闲列表。</p>
+</li>
+</ol>
+<p>内存分配的线程安全问题：<br>对象创建非常频繁，即使仅仅修改指针指向的位置，也可能是非线程安全的，可能在给对象A分配内存时，指针还没来得及修改，对象B又使用了原来的指针来分配内存。<br>解决档案：</p>
+<ol>
+<li>对分配内存空间动作进行同步处理-实际上虚拟机采用CAS配上失败重试的方式保证更新操作的原子性；</li>
+<li>本地线程分配缓冲（TLAB）-把内存分配的动作按照线程换分在不同的空间之中进行，即每个线程在Java堆中预先分配一小块内存。当那个线程需要分配时，就在哪个线程的TLAB上分配，当TLAB用完分配新的TLAB时会使用同步锁定。虚拟机是否使用TLAB通过-XX:+/-UseTLAB参数来设定。</li>
+</ol>
+<h3 id="将分配到的内存空间都初始化为零值"><a href="#将分配到的内存空间都初始化为零值" class="headerlink" title="将分配到的内存空间都初始化为零值"></a>将分配到的内存空间都初始化为零值</h3><p>保证对象实例字段在Java代码中可以不赋初始值就可以使用，程序能直接访问这些字段的数据类型所对应的零值。<br>若使用TLAB，本过程也可以提前至TLAB分配时进行。</p>
+<h3 id="对象设置"><a href="#对象设置" class="headerlink" title="对象设置"></a>对象设置</h3><p>在对象的对象头中<strong>保存对象是哪个类的实例、如何能找到类的元数据信息、对象的哈希吗、对象的GC分代年龄等信息</strong>。</p>
+<blockquote>
+<p>注意：在上面四个步骤完成后，再虚拟机看来，对象已经创建完成，但从Java程序来看，对象创建才刚开始-<init>方法还没有执行，所有字段都还为零。所以一般来说，执行new指令后会执行<init>方法。</init></init></p>
+</blockquote>
+<h2 id="对象内存布局"><a href="#对象内存布局" class="headerlink" title="对象内存布局"></a>对象内存布局</h2><blockquote>
+<p>HotSpot虚拟机中，对象在内存中存储的布局可以分为3快区域：对象头、实例数据和对齐填充。</p>
+</blockquote>
+<h3 id="对象头"><a href="#对象头" class="headerlink" title="对象头"></a>对象头</h3><p>对象头信息主要包括两部分：</p>
+<ol>
+<li><strong>用于存储对象自身的运行时数据</strong>，如哈希码、GC分代年龄、锁状态标识、线程持有的锁、偏向线程ID、偏向时间戳，数据的长度根据32位还是64位的虚拟机决定，分别为32bit和64bit，官方成为Mark Word，Mark Word被设计成一个非固定大小的数据结构以便在极小的空间存储尽量多的信息，它会根据对象的状态复用自己的存储空间。</li>
+<li>另一部分是<strong>类型指针</strong>，即对象指向它的类元数据的指针，虚拟机通过这个指针确定他是哪个类的实例，但并不是所有虚拟机实现都必须在对象数据上保留类型指针，也就是说，查找对象的元数据信息并不一定要通过对象本身。</li>
+</ol>
+<blockquote>
+<p>如果对象是一个数组，在对象头中还必须有一块来记录数组的长度，因为虚拟机无法从数组的元数据中确定数组的大小。</p>
+</blockquote>
+<h3 id="实例数据"><a href="#实例数据" class="headerlink" title="实例数据"></a>实例数据</h3><p><strong>实例数据部分存储程序代码中所定义的各种类型的字段内容</strong>。无论是继承父类的还是子类中定义的，都要记录。这部分存储顺序受到虚拟机分配策略参数和字段在Java源码中定义顺序的影响。HotSpot虚拟机默认分配顺序为longs/doubles、ints、shorts/chars、bytes/booleans、oops，可以看出相同宽度的字段会被分配到一起。此前提下，父类中定义的变量会出现在子类之前。如果CompactFields参数值为true（默认true），子类中较窄的变量可能会插入到父类变量的空隙中。</p>
+<h3 id="对齐填充"><a href="#对齐填充" class="headerlink" title="对齐填充"></a>对齐填充</h3><p>对其填充并不是必然存在的，具有<strong>占位符</strong>的作用。因为HotSpot VM自动内存管理系统要求对象起始地址必须是8字节的整数倍，也就是说，对象的大小必须是8字节的整数倍。而对象头部分刚好是8字节的倍数（1倍或2倍），因此，当实例数据部分没有对齐时，就需要通过对其填充来补全。</p>
+<h2 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h2><p>对象的访问是根据虚拟机的实现而定的，主流的访问方式主要有句柄访问和直接指针两种方式。</p>
+<h3 id="句柄访问"><a href="#句柄访问" class="headerlink" title="句柄访问"></a>句柄访问</h3><p>使用句柄访问的方式，Java堆中会划分出一块内存作为句柄池，reference中存储的对象就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体信息，如图所示：<br><img src="http://ww2.sinaimg.cn/large/b36cd9dbgw1f3y8p4xzp1j20cg05q3z6.jpg" alt=""></p>
+<h3 id="直接指针"><a href="#直接指针" class="headerlink" title="直接指针"></a>直接指针</h3><p>使用直接指针访问，Java堆对象的布局当中就必须考虑如何放置访问类型数据信息，而reference中存储的直接就是对象地址，如图所示：<br><img src="http://ww3.sinaimg.cn/large/b36cd9dbgw1f3y8pj7gwkj20dk064dg0.jpg" alt=""></p>
+<p>比较：<br>使用句柄访问的优势是reference中存储的是<strong>稳定的句柄地址</strong>，在对象被移动（如垃圾收集时）时只会改变句柄中实例数据指针，而reference本身不需要修改；<br>使用直接指针的优势在于<strong>速度更快</strong>，节省一次指针的定位开销。HotSpot VM则使用这种方式进行对象访问。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/10/Reading-JVM-Note-II/">深入理解Java JVM 读书笔记（二）Java对象</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
+        <p><span>发布时间:</span>2016-05-10, 23:36:51</p>
+        <p><span>最后更新:</span>2016-05-24, 13:13:19</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/10/Reading-JVM-Note-II/" title="深入理解Java JVM 读书笔记（二）Java对象">http://yoursite.com/2016/05/10/Reading-JVM-Note-II/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/10/Reading-JVM-Note-II/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/05/16/What-a-wonderful-day-20150514/">
+                    What a wonderful day-20160514
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/05/09/Reading-JVM-Note-I/">
+                    深入理解Java JVM 读书笔记（一）Java内存区域
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的创建"><span class="toc-number">1.</span> <span class="toc-text">对象的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类加载检查"><span class="toc-number">1.1.</span> <span class="toc-text">类加载检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为新生对象分配内存"><span class="toc-number">1.2.</span> <span class="toc-text">为新生对象分配内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将分配到的内存空间都初始化为零值"><span class="toc-number">1.3.</span> <span class="toc-text">将分配到的内存空间都初始化为零值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象设置"><span class="toc-number">1.4.</span> <span class="toc-text">对象设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象内存布局"><span class="toc-number">2.</span> <span class="toc-text">对象内存布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象头"><span class="toc-number">2.1.</span> <span class="toc-text">对象头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例数据"><span class="toc-number">2.2.</span> <span class="toc-text">实例数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对齐填充"><span class="toc-number">2.3.</span> <span class="toc-text">对齐填充</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的访问定位"><span class="toc-number">3.</span> <span class="toc-text">对象的访问定位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#句柄访问"><span class="toc-number">3.1.</span> <span class="toc-text">句柄访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#直接指针"><span class="toc-number">3.2.</span> <span class="toc-text">直接指针</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"深入理解Java JVM 读书笔记（二）Java对象　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/05/10/Reading-JVM-Note-II/" data-title="深入理解Java JVM 读书笔记（二）Java对象" data-url="http://yoursite.com/2016/05/10/Reading-JVM-Note-II/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"reclusegu"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//reclusegu.github.io/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/05/16/What-a-wonderful-day-20150514/" title="上一篇: What a wonderful day-20160514">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/05/09/Reading-JVM-Note-I/" title="下一篇: 深入理解Java JVM 读书笔记（一）Java内存区域">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/05/25/Expression-is-not-assignable/">Expression is not assignable</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/25/UIView-Extend-Property/">UIView 扩展x,y,width,height,Size,Origin等属性</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/25/Reading-JVM-Note-IV/">深入理解Java JVM 读书笔记（四）垃圾回收算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/24/Reading-JVM-Note-III/">深入理解Java JVM 读书笔记（三）Java对象“死”了么？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/What-a-wonderful-day-20150514/">What a wonderful day-20160514</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/Reading-JVM-Note-II/">深入理解Java JVM 读书笔记（二）Java对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/09/Reading-JVM-Note-I/">深入理解Java JVM 读书笔记（一）Java内存区域</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/markdown/">Markdown 简介 & 使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/04/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 Recluse
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>   <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
