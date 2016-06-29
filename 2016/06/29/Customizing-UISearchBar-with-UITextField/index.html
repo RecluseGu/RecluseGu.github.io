@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>深入理解Java JVM 读书笔记（四）垃圾回收算法 | Crazy Guge</title>
+  <title>使用UITextField自定义UISearchBar | Crazy Guge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一节内容在书中记叙了如何判断一个对象是否死亡，是否可回收，这一节内容说明三种垃圾收集算法（标记-清除算法、复制算法、标记-整理算法），简单介绍几种算法的思想和优缺点。">
+  <meta name="description" content="有的时候，使用iOS自带的控件不符合我们的开发要求时，我们一般自定义控件来满足需求。在此处，我们通过创建一个GUSearchBar类，继承自UITextField类来自定义搜索框。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解Java JVM 读书笔记（四）垃圾回收算法">
-<meta property="og:url" content="http://yoursite.com/2016/05/25/Reading-JVM-Note-IV/index.html">
+<meta property="og:title" content="使用UITextField自定义UISearchBar">
+<meta property="og:url" content="http://yoursite.com/2016/06/29/Customizing-UISearchBar-with-UITextField/index.html">
 <meta property="og:site_name" content="Crazy Guge">
-<meta property="og:description" content="上一节内容在书中记叙了如何判断一个对象是否死亡，是否可回收，这一节内容说明三种垃圾收集算法（标记-清除算法、复制算法、标记-整理算法），简单介绍几种算法的思想和优缺点。">
-<meta property="og:updated_time" content="2016-05-25T08:11:02.000Z">
+<meta property="og:description" content="有的时候，使用iOS自带的控件不符合我们的开发要求时，我们一般自定义控件来满足需求。在此处，我们通过创建一个GUSearchBar类，继承自UITextField类来自定义搜索框。">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/b36cd9dbgw1f5c2a6qcpdj20zc0neahy.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/b36cd9dbgw1f5c2f4ghmtj20ks03mmx7.jpg">
+<meta property="og:updated_time" content="2016-06-29T06:13:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入理解Java JVM 读书笔记（四）垃圾回收算法">
-<meta name="twitter:description" content="上一节内容在书中记叙了如何判断一个对象是否死亡，是否可回收，这一节内容说明三种垃圾收集算法（标记-清除算法、复制算法、标记-整理算法），简单介绍几种算法的思想和优缺点。">
+<meta name="twitter:title" content="使用UITextField自定义UISearchBar">
+<meta name="twitter:description" content="有的时候，使用iOS自带的控件不符合我们的开发要求时，我们一般自定义控件来满足需求。在此处，我们通过创建一个GUSearchBar类，继承自UITextField类来自定义搜索框。">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/b36cd9dbgw1f5c2a6qcpdj20zc0neahy.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
   
@@ -222,11 +225,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Reading-JVM-Note-IV" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Customizing-UISearchBar-with-UITextField" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/05/25/Reading-JVM-Note-IV/" class="article-date">
-      <time datetime="2016-05-25T06:23:25.000Z" itemprop="datePublished">2016-05-25</time>
+      <a href="/2016/06/29/Customizing-UISearchBar-with-UITextField/" class="article-date">
+      <time datetime="2016-06-29T05:19:33.000Z" itemprop="datePublished">2016-06-29</time>
 </a>
     </div>
   
@@ -239,7 +242,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      深入理解Java JVM 读书笔记（四）垃圾回收算法
+      使用UITextField自定义UISearchBar
     </h1>
   
 
@@ -254,7 +257,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/垃圾回收/">垃圾回收</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Category/">Category</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UISearchBar/">UISearchBar</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITextField/">UITextField</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -265,21 +268,23 @@
       
           
         <blockquote>
-<p>上一节内容在书中记叙了如何判断一个对象是否死亡，是否可回收，这一节内容说明三种垃圾收集算法（<strong>标记-清除算法、复制算法、标记-整理算法</strong>），简单介绍几种算法的思想和优缺点。<br><a id="more"></a></p>
+<p>有的时候，使用iOS自带的控件不符合我们的开发要求时，我们一般自定义控件来满足需求。在此处，我们通过创建一个GUSearchBar类，继承自UITextField类来自定义搜索框。</p>
 </blockquote>
-<h2 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h2><p>标记清除算法是最基础的收集算法，其他收集算法都是基于这种思路并对其不足进行改进而得到的。算法分为“标记”和“清除”两个阶段：首先标记出所有需要回收的对象，标记完成之后统一清除所标记的对象。</p>
-<p>主要缺点：</p>
-<ol>
-<li>效率问题：标记和清除两个过程效率都不高 </li>
-<li>空间问题：标记清除之后会产生大量不连续的内存碎片。</li>
-</ol>
-<h2 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h2><p>它将可用内存容量划分为大小相等的两块，每次只使用其中的一块。当这一块用完之后，就将还存活的对象复制到另外一块上面，然后再把已使用过的内存空间一次清理掉。这样使得每次都是对其中的一块进行内存回收，不会产生碎片等情况，只要移动堆订的指针，按顺序分配内存即可，实现简单，运行高效。</p>
-<p>主要缺点：<br>内存缩小为原来的一半。</p>
-<h2 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h2><p>标记过程和“标记-清除”算法一样，但后续操作不只是直接清理对象，而是在清理无用对象完成后让所有存活的对象都向一端移动，并更新引用其对象的指针。</p>
-<p>主要缺点：<br>在标记-清除的基础上还需进行对象的移动，成本相对较高，好处则是不会产生内存碎片。</p>
-<h2 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h2><p>根据对象存活周期的不同将内存分为几块。一般是把Java堆分为新生代和老年代，这样就可以根据各个年代的特点采用最合适的收集算法。</p>
-<p>新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，就选用复制算法，只需要付出少量存活对象的复制成本就可以完成收集。</p>
-<p>老年代中因为对象存活率高、没有额外的空间对它进行分配担保，就必须使用“标记-清理”或者“标记-整理”算法进行回收。</p>
+<p><img src="http://ww3.sinaimg.cn/large/b36cd9dbgw1f5c2a6qcpdj20zc0neahy.jpg" alt="I Believe you will come back!"></p>
+<a id="more"></a>
+<h2 id="创建GUSearchBar"><a href="#创建GUSearchBar" class="headerlink" title="创建GUSearchBar"></a>创建GUSearchBar</h2><blockquote>
+<p>代码如下：GUSearchBar.h</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">GUSearchBar</span> : <span class="title">UITextField</span></span></span><br><span class="line"></span><br><span class="line">+(instancetype) searchBar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>GUSearchBar.m</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"GUSearchBar.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">GUSearchBar</span></span></span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> initWithFrame:frame];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.background = [<span class="built_in">UIImage</span> resizedImage:<span class="string">@"searchbar_textfield_background"</span>];</span><br><span class="line">        <span class="keyword">self</span>.contentVerticalAlignment = <span class="built_in">UIControlContentVerticalAlignmentCenter</span>;</span><br><span class="line">        <span class="built_in">UIImageView</span> *leftView = [[<span class="built_in">UIImageView</span> alloc] init];</span><br><span class="line">        leftView.image = [<span class="built_in">UIImage</span> imageWithName:<span class="string">@"searchbar_textfield_search_icon"</span>];</span><br><span class="line"></span><br><span class="line">        leftView.width = leftView.image.size.width + <span class="number">10</span>;</span><br><span class="line">        leftView.height = leftView.image.size.height;</span><br><span class="line">        leftView.contentMode = <span class="built_in">UIViewContentModeCenter</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.leftView = leftView;</span><br><span class="line">        <span class="keyword">self</span>.leftViewMode = <span class="built_in">UITextFieldViewModeAlways</span>;</span><br><span class="line">        <span class="keyword">self</span>.clearButtonMode = <span class="built_in">UITextFieldViewModeAlways</span>;</span><br><span class="line">        <span class="keyword">self</span>.placeholder = <span class="string">@"搜索"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(instancetype) searchBar</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：上述有类似leftView.width，leftView.height这样的语法是使用了自定义UIView的扩展分类，详情请点击<a href="http://reclusegu.github.io/2016/05/25/UIView-Extend-Property/" target="_blank" rel="external">UIView扩展</a>。</p>
+</blockquote>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GUSearchBar *searchBar = [[GUSearchBar alloc] init];</span><br><span class="line">searchBar.width = <span class="number">350</span>;</span><br><span class="line">searchBar.height = <span class="number">30</span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">self</span>.navigationItem.titleView = searchBar;</span><br></pre></td></tr></table></figure>
+<h2 id="使用效果"><a href="#使用效果" class="headerlink" title="使用效果"></a>使用效果</h2><p><img src="http://ww3.sinaimg.cn/large/b36cd9dbgw1f5c2f4ghmtj20ks03mmx7.jpg" alt="GUSearchBar"></p>
 
       
     </div>
@@ -288,13 +293,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/05/25/Reading-JVM-Note-IV/">深入理解Java JVM 读书笔记（四）垃圾回收算法</a></p>
+        <p><span>本文标题:</span><a href="/2016/06/29/Customizing-UISearchBar-with-UITextField/">使用UITextField自定义UISearchBar</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
-        <p><span>发布时间:</span>2016-05-25, 14:23:25</p>
-        <p><span>最后更新:</span>2016-05-25, 16:11:02</p>
+        <p><span>发布时间:</span>2016-06-29, 13:19:33</p>
+        <p><span>最后更新:</span>2016-06-29, 14:13:00</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/05/25/Reading-JVM-Note-IV/" title="深入理解Java JVM 读书笔记（四）垃圾回收算法">http://yoursite.com/2016/05/25/Reading-JVM-Note-IV/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/25/Reading-JVM-Note-IV/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/06/29/Customizing-UISearchBar-with-UITextField/" title="使用UITextField自定义UISearchBar">http://yoursite.com/2016/06/29/Customizing-UISearchBar-with-UITextField/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/06/29/Customizing-UISearchBar-with-UITextField/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -306,16 +311,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/05/25/UIView-Extend-Property/">
-                    UIView 扩展x,y,width,height,Size,Origin等属性
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/05/24/Reading-JVM-Note-III/">
-                    深入理解Java JVM 读书笔记（三）Java对象“死”了么？
+                <a href="/2016/06/06/Remove-tabbar-in-UINavigationcontroller/">
+                    当push的时候隐藏UINavigationController的TabBar
                 </a>
             </div>
         
@@ -326,7 +325,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#标记-清除算法"><span class="toc-number">1.</span> <span class="toc-text">标记-清除算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复制算法"><span class="toc-number">2.</span> <span class="toc-text">复制算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标记-整理算法"><span class="toc-number">3.</span> <span class="toc-text">标记-整理算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分代收集算法"><span class="toc-number">4.</span> <span class="toc-text">分代收集算法</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建GUSearchBar"><span class="toc-number">1.</span> <span class="toc-text">创建GUSearchBar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">2.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用效果"><span class="toc-number">3.</span> <span class="toc-text">使用效果</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -383,7 +382,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"深入理解Java JVM 读书笔记（四）垃圾回收算法　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"使用UITextField自定义UISearchBar　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -399,7 +398,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/05/25/Reading-JVM-Note-IV/" data-title="深入理解Java JVM 读书笔记（四）垃圾回收算法" data-url="http://yoursite.com/2016/05/25/Reading-JVM-Note-IV/"></div>
+    <div class="ds-thread" data-thread-key="2016/06/29/Customizing-UISearchBar-with-UITextField/" data-title="使用UITextField自定义UISearchBar" data-url="http://yoursite.com/2016/06/29/Customizing-UISearchBar-with-UITextField/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -423,15 +422,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/05/25/UIView-Extend-Property/" title="上一篇: UIView 扩展x,y,width,height,Size,Origin等属性">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/05/24/Reading-JVM-Note-III/" title="下一篇: 深入理解Java JVM 读书笔记（三）Java对象“死”了么？">
+            <a href="/2016/06/06/Remove-tabbar-in-UINavigationcontroller/" title="下一篇: 当push的时候隐藏UINavigationController的TabBar">
                 <i class="fa fa-angle-right"></i>
             </a>
         
