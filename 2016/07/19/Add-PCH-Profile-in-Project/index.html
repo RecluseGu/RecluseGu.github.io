@@ -3,18 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Expression is not assignable | Crazy Guge</title>
+  <title>在项目中添加PCH文件 | Crazy Guge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="例如如下代码：没法通过编译，编译器会报错：Expression is not assignable1self.view.frame.size.height = 100;">
+  <meta name="description" content="在Xcode6之前，创建一个新工程是Xcode会在Supporting files文件夹下自动创建一个“工程名-Prefix.pch”文件，pch文件的内容能被项目中其他所有文件访问，它是一个预编译文件。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Expression is not assignable">
-<meta property="og:url" content="http://yoursite.com/2016/05/25/Expression-is-not-assignable/index.html">
+<meta property="og:title" content="在项目中添加PCH文件">
+<meta property="og:url" content="http://yoursite.com/2016/07/19/Add-PCH-Profile-in-Project/index.html">
 <meta property="og:site_name" content="Crazy Guge">
-<meta property="og:description" content="例如如下代码：没法通过编译，编译器会报错：Expression is not assignable1self.view.frame.size.height = 100;">
-<meta property="og:updated_time" content="2016-05-25T13:30:11.000Z">
+<meta property="og:description" content="在Xcode6之前，创建一个新工程是Xcode会在Supporting files文件夹下自动创建一个“工程名-Prefix.pch”文件，pch文件的内容能被项目中其他所有文件访问，它是一个预编译文件。">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b36cd9dbgw1f5zf70wfo8j20cu08emxf.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/b36cd9dbgw1f5zeydzugpj214k0ssdko.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b36cd9dbgw1f5zeyxm9i8j21cm0s2n4s.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/b36cd9dbgw1f5zez4cw8rj21340fctc1.jpg">
+<meta property="og:updated_time" content="2016-07-19T11:07:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Expression is not assignable">
-<meta name="twitter:description" content="例如如下代码：没法通过编译，编译器会报错：Expression is not assignable1self.view.frame.size.height = 100;">
+<meta name="twitter:title" content="在项目中添加PCH文件">
+<meta name="twitter:description" content="在Xcode6之前，创建一个新工程是Xcode会在Supporting files文件夹下自动创建一个“工程名-Prefix.pch”文件，pch文件的内容能被项目中其他所有文件访问，它是一个预编译文件。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/b36cd9dbgw1f5zf70wfo8j20cu08emxf.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
   
@@ -222,11 +227,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Expression-is-not-assignable" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Add-PCH-Profile-in-Project" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/05/25/Expression-is-not-assignable/" class="article-date">
-      <time datetime="2016-05-25T12:29:57.000Z" itemprop="datePublished">2016-05-25</time>
+      <a href="/2016/07/19/Add-PCH-Profile-in-Project/" class="article-date">
+      <time datetime="2016-07-19T09:48:35.000Z" itemprop="datePublished">2016-07-19</time>
 </a>
     </div>
   
@@ -239,7 +244,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Expression is not assignable
+      在项目中添加PCH文件
     </h1>
   
 
@@ -254,7 +259,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Error/">Error</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PCH/">PCH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自定义Log/">自定义Log</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/颜色/">颜色</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -264,13 +269,28 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>例如如下代码：没法通过编译，编译器会报错：<strong>Expression is not assignable</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.view.frame.size.height = <span class="number">100</span>;</span><br></pre></td></tr></table></figure><br><a id="more"></a></p>
-<p>这句代码中self.view.frame是Objective-C(以下简称OC)语法，是用来读取view属性的frame属性，在OC中使用点语法访问属性是一种语法糖，所以self.view.frame会被转化成：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="keyword">self</span> view] frame];</span><br></pre></td></tr></table></figure><br>实际上这是OC种的消息传递。</p>
-<p>frame属性是一个CGRect结构，frame.size.height是C语言的语法，即访问CGRect结构的中的size，size也是一个结构为CGSize，再访问CGSize中的height。则self.view.frame.size.height = 100;可以写成：<br>[[self view] frame].size.height = 100;</p>
-<p>但是我们知道OC是对C语言的一个扩展，所以上面这句话会被转换为C语言的函数调用形式，即：<br>getFrame().size.height = 100;</p>
-<p>在C语言中函数的返回值是一个R-Value（只能出现在等号的右边），不能直接赋值，因此，这就是编译器报错的原因。</p>
-<p>可行的解决办法是，用一个临时变量保存这个函数的返回值：<br>上面的代码可以写成：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGRect</span> tempFrame = <span class="keyword">self</span>.view.frame;</span><br><span class="line">tempFrame.size.height = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">self</span>.view.frame = tempFrame;</span><br></pre></td></tr></table></figure><br>根据OC的语法就只能写成上述代码，于是我们可以通过<a href="http://reclusegu.github.io/2016/05/25/UIView-Extend-Property/" target="_blank" rel="external">UIView扩展</a>来解决这个问题。</p>
-
+        <blockquote>
+<p>在Xcode6之前，创建一个新工程是Xcode会在Supporting files文件夹下自动创建一个“工程名-Prefix.pch”文件，pch文件的内容能被项目中其他所有文件访问，它是一个预编译文件。<br><img src="http://ww1.sinaimg.cn/large/b36cd9dbgw1f5zf70wfo8j20cu08emxf.jpg" alt=""></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="PCH文件的作用"><a href="#PCH文件的作用" class="headerlink" title="PCH文件的作用"></a>PCH文件的作用</h2><blockquote>
+<ol>
+<li>存放整个项目中使用的上得宏定义，即全局的宏</li>
+<li>存放整个项目中所有文件都用得上的头文件</li>
+</ol>
+</blockquote>
+<h2 id="Xcode中添加PCH文件"><a href="#Xcode中添加PCH文件" class="headerlink" title="Xcode中添加PCH文件"></a>Xcode中添加PCH文件</h2><ol>
+<li><p>Command + N，打开新建文件窗口：依次选择iOS-&gt;other-&gt;PCH File<br><img src="http://ww3.sinaimg.cn/large/b36cd9dbgw1f5zeydzugpj214k0ssdko.jpg" alt=""></p>
+</li>
+<li><p>在工程的Targets中的Build Settings搜索Prefix Header<br><img src="http://ww1.sinaimg.cn/large/b36cd9dbgw1f5zeyxm9i8j21cm0s2n4s.jpg" alt=""></p>
+</li>
+<li><p>在Prefix Header右边双击，添加刚刚创建的pch文件的路径（右击pch文件-&gt;Show in Finder-&gt;将文件拖入弹出的白框内）<br><img src="http://ww4.sinaimg.cn/large/b36cd9dbgw1f5zez4cw8rj21340fctc1.jpg" alt=""></p>
+</li>
+</ol>
+<h2 id="添加自定义LOG、颜色宏定义"><a href="#添加自定义LOG、颜色宏定义" class="headerlink" title="添加自定义LOG、颜色宏定义"></a>添加自定义LOG、颜色宏定义</h2><blockquote>
+<p>PCH文件中添加代码</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  PrefixHeader.pch</span></span><br><span class="line"><span class="comment">//  GUBaiSI</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by 永亮 谷 on 7/19/16.</span></span><br><span class="line"><span class="comment">//  Copyright © 2016 Recluse. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">#ifndef PrefixHeader_pch</span></span><br><span class="line"><span class="meta">#define PrefixHeader_pch</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#ifdef __OBJC__</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义LOG</span></span><br><span class="line"><span class="meta">#ifdef DEBUG</span></span><br><span class="line"><span class="meta">#define GYLLog(...) NSLog(__VA_ARGS__)</span></span><br><span class="line"><span class="meta">#else</span></span><br><span class="line"><span class="meta">#define GYLLog(...)</span></span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//颜色</span></span><br><span class="line"><span class="meta">#define GYLCOLORA(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)/255.0]</span></span><br><span class="line"><span class="meta">#define GYLCOLOR(r,g,b) GYLCOLORA(r,g,b,255)</span></span><br><span class="line"><span class="meta">#define GYLRANDOMCOLOR GYLCOLOR(arc4random_uniform(255),arc4random_uniform(255),arc4random_uniform(255))</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#endif /* PrefixHeader_pch */</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -278,13 +298,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/05/25/Expression-is-not-assignable/">Expression is not assignable</a></p>
+        <p><span>本文标题:</span><a href="/2016/07/19/Add-PCH-Profile-in-Project/">在项目中添加PCH文件</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
-        <p><span>发布时间:</span>2016-05-25, 20:29:57</p>
-        <p><span>最后更新:</span>2016-05-25, 21:30:11</p>
+        <p><span>发布时间:</span>2016-07-19, 17:48:35</p>
+        <p><span>最后更新:</span>2016-07-19, 19:07:08</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/05/25/Expression-is-not-assignable/" title="Expression is not assignable">http://yoursite.com/2016/05/25/Expression-is-not-assignable/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/25/Expression-is-not-assignable/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/07/19/Add-PCH-Profile-in-Project/" title="在项目中添加PCH文件">http://yoursite.com/2016/07/19/Add-PCH-Profile-in-Project/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/07/19/Add-PCH-Profile-in-Project/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -296,16 +316,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/06/06/Remove-tabbar-in-UINavigationcontroller/">
-                    当push的时候隐藏UINavigationController的TabBar
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/05/25/UIView-Extend-Property/">
-                    UIView 扩展x,y,width,height,Size,Origin等属性
+                <a href="/2016/07/05/Display-New-Feature-When-APP-Updated/">
+                    iOS如何在更新后第一次显示版本新特性
                 </a>
             </div>
         
@@ -316,7 +330,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PCH文件的作用"><span class="toc-number">1.</span> <span class="toc-text">PCH文件的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Xcode中添加PCH文件"><span class="toc-number">2.</span> <span class="toc-text">Xcode中添加PCH文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加自定义LOG、颜色宏定义"><span class="toc-number">3.</span> <span class="toc-text">添加自定义LOG、颜色宏定义</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -373,7 +387,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Expression is not assignable　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"在项目中添加PCH文件　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -389,7 +403,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/05/25/Expression-is-not-assignable/" data-title="Expression is not assignable" data-url="http://yoursite.com/2016/05/25/Expression-is-not-assignable/"></div>
+    <div class="ds-thread" data-thread-key="2016/07/19/Add-PCH-Profile-in-Project/" data-title="在项目中添加PCH文件" data-url="http://yoursite.com/2016/07/19/Add-PCH-Profile-in-Project/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -413,15 +427,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/06/06/Remove-tabbar-in-UINavigationcontroller/" title="上一篇: 当push的时候隐藏UINavigationController的TabBar">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/05/25/UIView-Extend-Property/" title="下一篇: UIView 扩展x,y,width,height,Size,Origin等属性">
+            <a href="/2016/07/05/Display-New-Feature-When-APP-Updated/" title="下一篇: iOS如何在更新后第一次显示版本新特性">
                 <i class="fa fa-angle-right"></i>
             </a>
         
