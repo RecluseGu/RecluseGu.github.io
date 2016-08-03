@@ -5,23 +5,17 @@
   
   <title>深入理解Java JVM 读书笔记（三）Java对象“死”了么？ | Crazy Guge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JVM管理的堆内存中，几乎存放了所有的对象实例，在垃圾收集器对堆进行回收前，首先就要判断这些对象之中哪些还“存活”,哪些已经死去。当一个对象已经使用完毕（没有任何引用指向它），则该对象所占用的内存应该被回收利用，这些即为JVM垃圾收集器的工作。
-
-如何判断一个对象是否已死，通常有两种算法：引用计数算法和可达性分析算法。">
+  <meta name="description" content="JVM管理的堆内存中，几乎存放了所有的对象实例，在垃圾收集器对堆进行回收前，首先就要判断这些对象之中哪些还“存活”,哪些已经死去。当一个对象已经使用完毕（没有任何引用指向它），则该对象所占用的内存应该被回收利用，这些即为JVM垃圾收集器的工作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解Java JVM 读书笔记（三）Java对象“死”了么？">
 <meta property="og:url" content="http://yoursite.com/2016/05/24/Reading-JVM-Note-III/index.html">
 <meta property="og:site_name" content="Crazy Guge">
-<meta property="og:description" content="JVM管理的堆内存中，几乎存放了所有的对象实例，在垃圾收集器对堆进行回收前，首先就要判断这些对象之中哪些还“存活”,哪些已经死去。当一个对象已经使用完毕（没有任何引用指向它），则该对象所占用的内存应该被回收利用，这些即为JVM垃圾收集器的工作。
-
-如何判断一个对象是否已死，通常有两种算法：引用计数算法和可达性分析算法。">
+<meta property="og:description" content="JVM管理的堆内存中，几乎存放了所有的对象实例，在垃圾收集器对堆进行回收前，首先就要判断这些对象之中哪些还“存活”,哪些已经死去。当一个对象已经使用完毕（没有任何引用指向它），则该对象所占用的内存应该被回收利用，这些即为JVM垃圾收集器的工作。">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/b36cd9dbgw1f46fjipvvrj20d80aw0tc.jpg">
-<meta property="og:updated_time" content="2016-05-24T06:16:51.000Z">
+<meta property="og:updated_time" content="2016-08-03T01:23:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解Java JVM 读书笔记（三）Java对象“死”了么？">
-<meta name="twitter:description" content="JVM管理的堆内存中，几乎存放了所有的对象实例，在垃圾收集器对堆进行回收前，首先就要判断这些对象之中哪些还“存活”,哪些已经死去。当一个对象已经使用完毕（没有任何引用指向它），则该对象所占用的内存应该被回收利用，这些即为JVM垃圾收集器的工作。
-
-如何判断一个对象是否已死，通常有两种算法：引用计数算法和可达性分析算法。">
+<meta name="twitter:description" content="JVM管理的堆内存中，几乎存放了所有的对象实例，在垃圾收集器对堆进行回收前，首先就要判断这些对象之中哪些还“存活”,哪些已经死去。当一个对象已经使用完毕（没有任何引用指向它），则该对象所占用的内存应该被回收利用，这些即为JVM垃圾收集器的工作。">
 <meta name="twitter:image" content="http://ww4.sinaimg.cn/large/b36cd9dbgw1f46fjipvvrj20d80aw0tc.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
@@ -273,9 +267,9 @@
       
           
         <blockquote>
-<p>JVM管理的堆内存中，几乎存放了所有的对象实例，在垃圾收集器对堆进行回收前，首先就要判断这些对象之中哪些还“存活”,哪些已经死去。当一个对象已经使用完毕（没有任何引用指向它），则该对象所占用的内存应该被回收利用，这些即为JVM垃圾收集器的工作。</p>
+<p>JVM管理的堆内存中，几乎存放了所有的对象实例，在垃圾收集器对堆进行回收前，首先就要判断这些对象之中哪些还“存活”,哪些已经死去。当一个对象已经使用完毕（没有任何引用指向它），则该对象所占用的内存应该被回收利用，这些即为JVM垃圾收集器的工作。<br><a id="more"></a></p>
 </blockquote>
-<p>如何判断一个对象是否已死，通常有两种算法：<strong>引用计数算法</strong>和<strong>可达性分析算法</strong>。<br><a id="more"></a></p>
+<p>如何判断一个对象是否已死，通常有两种算法：<strong>引用计数算法</strong>和<strong>可达性分析算法</strong>。</p>
 <h2 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h2><p>首先讲讲引用，如果reference类型的数据中存储的数据代表的是另一个内存的地址，就称这块这块内存代表一个引用。</p>
 <p>很多教科书中判断对象是否存活的算法是这样的：  </p>
 <blockquote>
@@ -316,7 +310,7 @@
         <p><span>本文标题:</span><a href="/2016/05/24/Reading-JVM-Note-III/">深入理解Java JVM 读书笔记（三）Java对象“死”了么？</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
         <p><span>发布时间:</span>2016-05-24, 13:11:47</p>
-        <p><span>最后更新:</span>2016-05-24, 14:16:51</p>
+        <p><span>最后更新:</span>2016-08-03, 09:23:59</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/24/Reading-JVM-Note-III/" title="深入理解Java JVM 读书笔记（三）Java对象“死”了么？">http://yoursite.com/2016/05/24/Reading-JVM-Note-III/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/24/Reading-JVM-Note-III/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

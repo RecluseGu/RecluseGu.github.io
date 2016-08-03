@@ -5,16 +5,16 @@
   
   <title>UIView 扩展x,y,width,height,Size,Origin等属性 | Crazy Guge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在定义一个view组件的位置时，大家都知道怎么设置该view组件的位置，是的我们通过view.frame来设置，代码如下：1[view.frame = CGRectMake(x,y,width,height)];">
+  <meta name="description" content="【将来的你 会感谢现在拼命的自己】">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UIView 扩展x,y,width,height,Size,Origin等属性">
 <meta property="og:url" content="http://yoursite.com/2016/05/25/UIView-Extend-Property/index.html">
 <meta property="og:site_name" content="Crazy Guge">
-<meta property="og:description" content="在定义一个view组件的位置时，大家都知道怎么设置该view组件的位置，是的我们通过view.frame来设置，代码如下：1[view.frame = CGRectMake(x,y,width,height)];">
-<meta property="og:updated_time" content="2016-05-26T08:50:32.000Z">
+<meta property="og:description" content="【将来的你 会感谢现在拼命的自己】">
+<meta property="og:updated_time" content="2016-08-03T01:23:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UIView 扩展x,y,width,height,Size,Origin等属性">
-<meta name="twitter:description" content="在定义一个view组件的位置时，大家都知道怎么设置该view组件的位置，是的我们通过view.frame来设置，代码如下：1[view.frame = CGRectMake(x,y,width,height)];">
+<meta name="twitter:description" content="【将来的你 会感谢现在拼命的自己】">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
   
@@ -264,7 +264,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>在定义一个view组件的位置时，大家都知道怎么设置该view组件的位置，是的我们通过view.frame来设置，代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[view.frame = <span class="built_in">CGRectMake</span>(x,y,width,height)];</span><br></pre></td></tr></table></figure><br><a id="more"></a></p>
+        <p>【将来的你 会感谢现在拼命的自己】<br><a id="more"></a></p>
+<p>在定义一个view组件的位置时，大家都知道怎么设置该view组件的位置，是的我们通过view.frame来设置，代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[view.frame = <span class="built_in">CGRectMake</span>(x,y,width,height)];</span><br></pre></td></tr></table></figure></p>
 <p>当我们单独对view.frame.size进行赋值时，需要创建临时变量tempSize：<br>e<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGSize</span> tempSize = view.frame; </span><br><span class="line">temp.size = (<span class="built_in">CGSize</span>)&#123;<span class="number">350</span>,<span class="number">30</span>&#125;;</span><br><span class="line">view.frame = tempSize;</span><br></pre></td></tr></table></figure></p>
 <p>而不能通过如下方式设置：以下方式无法通过编译，编译器会报错：<strong>Expression is not assignable</strong>;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.frame.size = (<span class="built_in">CGSize</span>)&#123;<span class="number">350</span>,<span class="number">30</span>&#125;; <span class="comment">//这个会报错，无法对size赋值</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
@@ -283,7 +284,7 @@
         <p><span>本文标题:</span><a href="/2016/05/25/UIView-Extend-Property/">UIView 扩展x,y,width,height,Size,Origin等属性</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
         <p><span>发布时间:</span>2016-05-25, 18:23:41</p>
-        <p><span>最后更新:</span>2016-05-26, 16:50:32</p>
+        <p><span>最后更新:</span>2016-08-03, 09:23:57</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/25/UIView-Extend-Property/" title="UIView 扩展x,y,width,height,Size,Origin等属性">http://yoursite.com/2016/05/25/UIView-Extend-Property/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/25/UIView-Extend-Property/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

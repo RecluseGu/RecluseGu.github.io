@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Crazy Guge">
 <meta property="og:description" content="忙碌的学期期末，都没有时间学习了。做作业，做作业，做作业。美洲杯，美洲杯，美洲杯。">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/0060lm7Tgw1f4mj0jkh13j31ay0g8ahe.jpg">
-<meta property="og:updated_time" content="2016-06-07T04:15:43.000Z">
+<meta property="og:updated_time" content="2016-08-03T01:23:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="当push的时候隐藏UINavigationController的TabBar">
 <meta name="twitter:description" content="忙碌的学期期末，都没有时间学习了。做作业，做作业，做作业。美洲杯，美洲杯，美洲杯。">
@@ -266,7 +266,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>忙碌的学期期末，都没有时间学习了。做作业，做作业，做作业。美洲杯，美洲杯，美洲杯。<br><img src="http://ww3.sinaimg.cn/large/0060lm7Tgw1f4mj0jkh13j31ay0g8ahe.jpg" alt="阿根廷 VS 智利 2:1"><br><a id="more"></a></p>
+        <p>忙碌的学期期末，都没有时间学习了。做作业，做作业，做作业。美洲杯，美洲杯，美洲杯。</p>
+<a id="more"></a>
+<p><img src="http://ww3.sinaimg.cn/large/0060lm7Tgw1f4mj0jkh13j31ay0g8ahe.jpg" alt="阿根廷 VS 智利 2:1"></p>
 <h2 id="Method-One"><a href="#Method-One" class="headerlink" title="Method One"></a>Method One</h2><p>通常一个UITabBarController需要管理多个UINavigationController，当从每一个UINavigationController中push到某一个ViewController，如果不做处理，会在push到的Controller中显示TabBar，第一个做法是设置ViewController隐藏TabBar，假设在tableView中选中某一行跳转到另一个控制器，代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView didSelectRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    GUTestController *testVc = [[GUTestController alloc] init];</span><br><span class="line">    testVc.view.backgroundColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    testVc.hidesBottomBarWhenPushed = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span>.navigationController pushViewController:testVc animated:<span class="literal">YES</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>也就是说，每次跳转到某个控制器的时候都要设置新控制器的hidesBottomBarWhenPushed属性为YES。</p>
@@ -292,7 +294,7 @@
         <p><span>本文标题:</span><a href="/2016/06/06/Remove-tabbar-in-UINavigationcontroller/">当push的时候隐藏UINavigationController的TabBar</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
         <p><span>发布时间:</span>2016-06-06, 21:33:47</p>
-        <p><span>最后更新:</span>2016-06-07, 12:15:43</p>
+        <p><span>最后更新:</span>2016-08-03, 09:23:58</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/06/06/Remove-tabbar-in-UINavigationcontroller/" title="当push的时候隐藏UINavigationController的TabBar">http://yoursite.com/2016/06/06/Remove-tabbar-in-UINavigationcontroller/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/06/06/Remove-tabbar-in-UINavigationcontroller/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

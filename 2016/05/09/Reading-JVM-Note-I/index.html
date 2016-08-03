@@ -5,23 +5,17 @@
   
   <title>深入理解Java JVM 读书笔记（一）Java内存区域 | Crazy Guge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近开始阅读周志明编写的《深入理解Java虚拟机》，发现有些了解却了解的不是很清晰的内容，尤其是有很多不了解的知识，于是在博客中记录学习过程中的点点滴滴。  
-
-晚上在无聊的毛中特课上，实验室的小伙伴向我抱怨C++的内存管理很繁琐，对于C、C++的开发人员，他们自行对内存进行管理，负责每一个对象的从出生到死亡的过程；而对于Java程序猿来说，内存管理由JVM负责，帮助Java程序猿省下一大笔的时">
+  <meta name="description" content="最近开始阅读周志明编写的《深入理解Java虚拟机》，发现有些了解却了解的不是很清晰的内容，尤其是有很多不了解的知识，于是在博客中记录学习过程中的点点滴滴。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解Java JVM 读书笔记（一）Java内存区域">
 <meta property="og:url" content="http://yoursite.com/2016/05/09/Reading-JVM-Note-I/index.html">
 <meta property="og:site_name" content="Crazy Guge">
-<meta property="og:description" content="最近开始阅读周志明编写的《深入理解Java虚拟机》，发现有些了解却了解的不是很清晰的内容，尤其是有很多不了解的知识，于是在博客中记录学习过程中的点点滴滴。  
-
-晚上在无聊的毛中特课上，实验室的小伙伴向我抱怨C++的内存管理很繁琐，对于C、C++的开发人员，他们自行对内存进行管理，负责每一个对象的从出生到死亡的过程；而对于Java程序猿来说，内存管理由JVM负责，帮助Java程序猿省下一大笔的时">
+<meta property="og:description" content="最近开始阅读周志明编写的《深入理解Java虚拟机》，发现有些了解却了解的不是很清晰的内容，尤其是有很多不了解的知识，于是在博客中记录学习过程中的点点滴滴。">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/b36cd9dbgw1f3pfx6z50kj20dw0axdhc.jpg">
-<meta property="og:updated_time" content="2016-05-24T05:13:08.000Z">
+<meta property="og:updated_time" content="2016-08-03T01:24:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解Java JVM 读书笔记（一）Java内存区域">
-<meta name="twitter:description" content="最近开始阅读周志明编写的《深入理解Java虚拟机》，发现有些了解却了解的不是很清晰的内容，尤其是有很多不了解的知识，于是在博客中记录学习过程中的点点滴滴。  
-
-晚上在无聊的毛中特课上，实验室的小伙伴向我抱怨C++的内存管理很繁琐，对于C、C++的开发人员，他们自行对内存进行管理，负责每一个对象的从出生到死亡的过程；而对于Java程序猿来说，内存管理由JVM负责，帮助Java程序猿省下一大笔的时">
+<meta name="twitter:description" content="最近开始阅读周志明编写的《深入理解Java虚拟机》，发现有些了解却了解的不是很清晰的内容，尤其是有很多不了解的知识，于是在博客中记录学习过程中的点点滴滴。">
 <meta name="twitter:image" content="http://ww4.sinaimg.cn/large/b36cd9dbgw1f3pfx6z50kj20dw0axdhc.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
@@ -273,9 +267,9 @@
       
           
         <blockquote>
-<p>最近开始阅读周志明编写的《深入理解Java虚拟机》，发现有些了解却了解的不是很清晰的内容，尤其是有很多不了解的知识，于是在博客中记录学习过程中的点点滴滴。  </p>
+<p>最近开始阅读周志明编写的《深入理解Java虚拟机》，发现有些了解却了解的不是很清晰的内容，尤其是有很多不了解的知识，于是在博客中记录学习过程中的点点滴滴。<br><a id="more"></a></p>
 </blockquote>
-<p>晚上在无聊的毛中特课上，实验室的小伙伴向我抱怨C++的内存管理很繁琐，对于C、C++的开发人员，他们自行对内存进行管理，负责每一个对象的从出生到死亡的过程；而对于Java程序猿来说，内存管理由JVM负责，帮助Java程序猿省下一大笔的时间，然而当Java内存泄漏发生时(OOM肆意横飞)，就需要我们了解JVM是怎样使用内存，进一步排查、解决问题。<br><a id="more"></a></p>
+<p>晚上在无聊的毛中特课上，实验室的小伙伴向我抱怨C++的内存管理很繁琐，对于C、C++的开发人员，他们自行对内存进行管理，负责每一个对象的从出生到死亡的过程；而对于Java程序猿来说，内存管理由JVM负责，帮助Java程序猿省下一大笔的时间，然而当Java内存泄漏发生时(OOM肆意横飞)，就需要我们了解JVM是怎样使用内存，进一步排查、解决问题。</p>
 <p>Java虚拟机在运行时将内存划分为若干数据区域，以下是《Java虚拟机规范（Java SE7版）》规定中的几个运行时数据区域，如图所示:<br><img src="http://ww4.sinaimg.cn/large/b36cd9dbgw1f3pfx6z50kj20dw0axdhc.jpg" alt="JVM运行时数据区"></p>
 <h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><ul>
 <li>程序计数器（Program Counter Register）是一块比较小的内存空间，可以看做是当前线程所执行的字节码的行号指示器；</li>
@@ -334,7 +328,7 @@
         <p><span>本文标题:</span><a href="/2016/05/09/Reading-JVM-Note-I/">深入理解Java JVM 读书笔记（一）Java内存区域</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
         <p><span>发布时间:</span>2016-05-09, 20:29:15</p>
-        <p><span>最后更新:</span>2016-05-24, 13:13:08</p>
+        <p><span>最后更新:</span>2016-08-03, 09:24:01</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/09/Reading-JVM-Note-I/" title="深入理解Java JVM 读书笔记（一）Java内存区域">http://yoursite.com/2016/05/09/Reading-JVM-Note-I/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/09/Reading-JVM-Note-I/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

@@ -5,16 +5,16 @@
   
   <title>Expression is not assignable | Crazy Guge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="例如如下代码：没法通过编译，编译器会报错：Expression is not assignable1self.view.frame.size.height = 100;">
+  <meta name="description" content="【别管那些纷纷扰扰，别让不开心的事，停下了脚步，就怕你不说，就怕你不做，别让遗憾继续，一切都还来的及–思念是一种病】">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Expression is not assignable">
 <meta property="og:url" content="http://yoursite.com/2016/05/25/Expression-is-not-assignable/index.html">
 <meta property="og:site_name" content="Crazy Guge">
-<meta property="og:description" content="例如如下代码：没法通过编译，编译器会报错：Expression is not assignable1self.view.frame.size.height = 100;">
-<meta property="og:updated_time" content="2016-05-25T13:30:11.000Z">
+<meta property="og:description" content="【别管那些纷纷扰扰，别让不开心的事，停下了脚步，就怕你不说，就怕你不做，别让遗憾继续，一切都还来的及–思念是一种病】">
+<meta property="og:updated_time" content="2016-08-03T01:30:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Expression is not assignable">
-<meta name="twitter:description" content="例如如下代码：没法通过编译，编译器会报错：Expression is not assignable1self.view.frame.size.height = 100;">
+<meta name="twitter:description" content="【别管那些纷纷扰扰，别让不开心的事，停下了脚步，就怕你不说，就怕你不做，别让遗憾继续，一切都还来的及–思念是一种病】">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
   
@@ -264,7 +264,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>例如如下代码：没法通过编译，编译器会报错：<strong>Expression is not assignable</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.view.frame.size.height = <span class="number">100</span>;</span><br></pre></td></tr></table></figure><br><a id="more"></a></p>
+        <p>【别管那些纷纷扰扰，别让不开心的事，停下了脚步，就怕你不说，就怕你不做，别让遗憾继续，一切都还来的及–思念是一种病】</p>
+<a id="more"></a>
+<p>例如如下代码：没法通过编译，编译器会报错：<strong>Expression is not assignable</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.view.frame.size.height = <span class="number">100</span>;</span><br></pre></td></tr></table></figure></p>
 <p>这句代码中self.view.frame是Objective-C(以下简称OC)语法，是用来读取view属性的frame属性，在OC中使用点语法访问属性是一种语法糖，所以self.view.frame会被转化成：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="keyword">self</span> view] frame];</span><br></pre></td></tr></table></figure><br>实际上这是OC种的消息传递。</p>
 <p>frame属性是一个CGRect结构，frame.size.height是C语言的语法，即访问CGRect结构的中的size，size也是一个结构为CGSize，再访问CGSize中的height。则self.view.frame.size.height = 100;可以写成：<br>[[self view] frame].size.height = 100;</p>
 <p>但是我们知道OC是对C语言的一个扩展，所以上面这句话会被转换为C语言的函数调用形式，即：<br>getFrame().size.height = 100;</p>
@@ -281,7 +283,7 @@
         <p><span>本文标题:</span><a href="/2016/05/25/Expression-is-not-assignable/">Expression is not assignable</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
         <p><span>发布时间:</span>2016-05-25, 20:29:57</p>
-        <p><span>最后更新:</span>2016-05-25, 21:30:11</p>
+        <p><span>最后更新:</span>2016-08-03, 09:30:50</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/25/Expression-is-not-assignable/" title="Expression is not assignable">http://yoursite.com/2016/05/25/Expression-is-not-assignable/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/25/Expression-is-not-assignable/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
