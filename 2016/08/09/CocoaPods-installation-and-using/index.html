@@ -3,21 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>修改UITextField占位符字体颜色的几个方法 | Crazy Guge</title>
+  <title>CocoaPods安装与使用 | Crazy Guge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近看到几篇博客，说到Apple公司希望开发者们利用Xcode提供的storyboard来开发界面，并且在storyboard中提供了大量的功能，给开发带来方便，当然也有些问题目前仅用storyboard还是解决不了的。最近在学习的过程中，就修改UITextField的占位符文字颜色给大家做个总结。">
+  <meta name="description" content="在我们项目开发的过程中，时不时的会用到第三方库，并且在一个项目中会用到多个第三方库，于是我们可以使用CocoaPods来安装和管理第三方库，这使我们在整个开发环境中对第三方库的版本管理非常方便。 CocoaPods 的原理是将所有的第三方库都放到另一个名为 Pods 项目中，并且让主项目依赖 Pods 项目，于是，源码管理工作都从主项目移到了 Pods 项目中。本文中我将介绍如何安装和使用Coco">
 <meta property="og:type" content="article">
-<meta property="og:title" content="修改UITextField占位符字体颜色的几个方法">
-<meta property="og:url" content="http://yoursite.com/2016/07/27/Modify-UITextField-Placeholder-Font-Color/index.html">
+<meta property="og:title" content="CocoaPods安装与使用">
+<meta property="og:url" content="http://yoursite.com/2016/08/09/CocoaPods-installation-and-using/index.html">
 <meta property="og:site_name" content="Crazy Guge">
-<meta property="og:description" content="最近看到几篇博客，说到Apple公司希望开发者们利用Xcode提供的storyboard来开发界面，并且在storyboard中提供了大量的功能，给开发带来方便，当然也有些问题目前仅用storyboard还是解决不了的。最近在学习的过程中，就修改UITextField的占位符文字颜色给大家做个总结。">
-<meta property="og:image" content="http://ww3.sinaimg.cn/large/b36cd9dbgw1f68iwocywdj20fe05kglm.jpg">
-<meta property="og:image" content="http://ww4.sinaimg.cn/large/b36cd9dbgw1f68ix24fszj20fc05qq31.jpg">
-<meta property="og:updated_time" content="2016-08-03T01:24:02.000Z">
+<meta property="og:description" content="在我们项目开发的过程中，时不时的会用到第三方库，并且在一个项目中会用到多个第三方库，于是我们可以使用CocoaPods来安装和管理第三方库，这使我们在整个开发环境中对第三方库的版本管理非常方便。 CocoaPods 的原理是将所有的第三方库都放到另一个名为 Pods 项目中，并且让主项目依赖 Pods 项目，于是，源码管理工作都从主项目移到了 Pods 项目中。本文中我将介绍如何安装和使用Coco">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-80742f8aa900dcce.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-342db580c87dc40e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-955a78f4a9ecedb5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-df64bea95768d4d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-d1797a71263317a3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-f1479690d64b6b3b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-aea918dd84cf0267.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-d77edefa0b84aa12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-08-09T05:36:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="修改UITextField占位符字体颜色的几个方法">
-<meta name="twitter:description" content="最近看到几篇博客，说到Apple公司希望开发者们利用Xcode提供的storyboard来开发界面，并且在storyboard中提供了大量的功能，给开发带来方便，当然也有些问题目前仅用storyboard还是解决不了的。最近在学习的过程中，就修改UITextField的占位符文字颜色给大家做个总结。">
-<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/b36cd9dbgw1f68iwocywdj20fe05kglm.jpg">
+<meta name="twitter:title" content="CocoaPods安装与使用">
+<meta name="twitter:description" content="在我们项目开发的过程中，时不时的会用到第三方库，并且在一个项目中会用到多个第三方库，于是我们可以使用CocoaPods来安装和管理第三方库，这使我们在整个开发环境中对第三方库的版本管理非常方便。 CocoaPods 的原理是将所有的第三方库都放到另一个名为 Pods 项目中，并且让主项目依赖 Pods 项目，于是，源码管理工作都从主项目移到了 Pods 项目中。本文中我将介绍如何安装和使用Coco">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2013105-80742f8aa900dcce.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
   
@@ -225,11 +231,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Modify-UITextField-Placeholder-Font-Color" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-CocoaPods-installation-and-using" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/27/Modify-UITextField-Placeholder-Font-Color/" class="article-date">
-      <time datetime="2016-07-27T05:31:38.000Z" itemprop="datePublished">2016-07-27</time>
+      <a href="/2016/08/09/CocoaPods-installation-and-using/" class="article-date">
+      <time datetime="2016-08-09T05:33:39.000Z" itemprop="datePublished">2016-08-09</time>
 </a>
     </div>
   
@@ -242,7 +248,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      修改UITextField占位符字体颜色的几个方法
+      CocoaPods安装与使用
     </h1>
   
 
@@ -257,7 +263,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Font/">Font</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Placeholder/">Placeholder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITextField/">UITextField</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CocoaPods/">CocoaPods</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -267,22 +273,40 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>最近看到几篇博客，说到Apple公司希望开发者们利用Xcode提供的storyboard来开发界面，并且在storyboard中提供了大量的功能，给开发带来方便，当然也有些问题目前仅用storyboard还是解决不了的。最近在学习的过程中，就修改UITextField的占位符文字颜色给大家做个总结。</p>
+        <p>在我们项目开发的过程中，时不时的会用到第三方库，并且在一个项目中会用到多个第三方库，于是我们可以使用CocoaPods来安装和管理第三方库，这使我们在整个开发环境中对第三方库的版本管理非常方便。 CocoaPods 的原理是将所有的第三方库都放到另一个名为 Pods 项目中，并且让主项目依赖 Pods 项目，于是，源码管理工作都从主项目移到了 Pods 项目中。本文中我将介绍如何安装和使用CocoaPods。</p>
 <a id="more"></a>
-<p>修改UITextField的占位符文字颜色主要有三个方法：</p>
-<h3 id="使用attributedPlaceholder属性"><a href="#使用attributedPlaceholder属性" class="headerlink" title="使用attributedPlaceholder属性"></a>使用attributedPlaceholder属性</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(nullable, <span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)   <span class="built_in">NSAttributedString</span>     *attributedPlaceholder <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">6</span>_0); <span class="comment">// default is nil</span></span><br></pre></td></tr></table></figure>
-<h3 id="重写drawPlaceholderInRect方法"><a href="#重写drawPlaceholderInRect方法" class="headerlink" title="重写drawPlaceholderInRect方法"></a>重写drawPlaceholderInRect方法</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawPlaceholderInRect:(<span class="built_in">CGRect</span>)rect;</span><br></pre></td></tr></table></figure>
-<h3 id="修改UITextField内部placeholderLaber的颜色"><a href="#修改UITextField内部placeholderLaber的颜色" class="headerlink" title="修改UITextField内部placeholderLaber的颜色"></a>修改UITextField内部placeholderLaber的颜色</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[textField setValue:[<span class="built_in">UIColor</span> grayColor] forKeyPath<span class="string">@"placeholderLaber.textColor"</span>];</span><br></pre></td></tr></table></figure>
-<p><strong>具体实现</strong></p>
+<h2 id="CocoaPods-安装"><a href="#CocoaPods-安装" class="headerlink" title="CocoaPods 安装"></a>CocoaPods 安装</h2><p>1.升级Ruby环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem update --system</span><br></pre></td></tr></table></figure>
+<p>环境升级的过程比较慢，静心等待吧（不要吐槽我的网速渣）！</p>
+<p>2.使用淘宝的RubyGems镜像来代替官方版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources --remove https://rubygems.org/</span><br><span class="line">//等到移除后再敲入以下命令</span><br><span class="line">$ gem sources -a https://ruby.taobao.org/</span><br></pre></td></tr></table></figure>
+<p>验证Ruby镜像只有taobao，使用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources -l</span><br></pre></td></tr></table></figure>
+<p>出现以下信息说明安装成功，具体可以查看官方文档<a href="https://ruby.taobao.org/" target="_blank" rel="external">https://ruby.taobao.org</a>：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-80742f8aa900dcce.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>3.安装CocoaPods</p>
+<ul>
+<li>系统在10.11以下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install cocoapods</span><br></pre></td></tr></table></figure>
+<ul>
+<li>系统在10.11以后</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install -n /usr/local/bin cocoapods</span><br><span class="line">//执行完后</span><br><span class="line">$ sudo xcode-select --switch /Applications/Xcode.app</span><br></pre></td></tr></table></figure>
+<p>在安装时，可能会出现错误，提示需要2.2.2以上版本Ruby，我在安装时就碰到这个错误，若遇到同样问题，请参考<a href="http://www.jianshu.com/p/a575aff064e3" target="_blank" rel="external">MAC OS Ruby升级</a>。</p>
+<p>输入以下完成安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod setup</span><br></pre></td></tr></table></figure>
+<p><code>注意：</code><br>在执行<code>pod setup</code>的时候会输出<code>Setting up CocoaPods master repo</code>，文件比较大，下载慢，等待的时间会非常久，还可能会出现错误：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-342db580c87dc40e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>执行<code>pod setup</code>其实是CocoaPods会将pod spec索引文件信息更新到~/.cocoapods目录下，可以通过<code>du -sh *</code>查看下载进度。有一位大神在国内的gitcafe、oschina上建立了CocoaPods的索引库镜像，因此可以使用国内的镜像，这样会快很多，执行步骤如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pod repo remove master</span><br><span class="line">$ pod repo add master https://gitcafe.com/akuandev/Specs.git</span><br><span class="line">$ pod repo update</span><br></pre></td></tr></table></figure></p>
+<p>将<code>https://gitcafe.com/akuandev/Specs.git</code>替换成<code>http://git.oschina.net/akuandev/Specs.git</code>就是oschina上的索引库镜像。</p>
+<p>以下界面说明setup成功：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-955a78f4a9ecedb5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="CocoaPods-使用"><a href="#CocoaPods-使用" class="headerlink" title="CocoaPods 使用"></a>CocoaPods 使用</h2><p>1.使用search搜索类库名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod search AFNetworking</span><br></pre></td></tr></table></figure></p>
+<p>效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-df64bea95768d4d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>2.新建项目CocoaPodsSample，切换到项目根目录，并建立Podfile文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &quot;your project home&quot;</span><br><span class="line">$ touch Podfile</span><br></pre></td></tr></table></figure></p>
+<p>效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-d1797a71263317a3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>3.使用vim编辑并保存pod file<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim Podfile</span><br></pre></td></tr></table></figure></p>
+<p>输入以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line">platform :ios, &apos;9.0&apos;</span><br><span class="line"></span><br><span class="line">target &apos;CocoaPodsSample&apos; do</span><br><span class="line">pod &apos;AFNetworking&apos;, &apos;~&gt; 3.1&apos;</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<p>4.下载安装AFNetworking<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod install</span><br></pre></td></tr></table></figure></p>
+<p>安装成功后：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-f1479690d64b6b3b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2013105-aea918dd84cf0267.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>5.双击<code>CocoaPodsSample.xcworkspace</code>打开工程，会发现AFNetworking已经安装好了，在ViewController中引入<code>#import &quot;AFNetworking&quot;</code>，再编译，不出错的话就可以使用啦。<br><img src="http://upload-images.jianshu.io/upload_images/2013105-d77edefa0b84aa12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <blockquote>
-<p>给定场景，如在注册登录中，要修改手机号和密码TextField的placeholder的文字颜色。</p>
-</blockquote>
-<p><strong>效果对比</strong><br><img src="http://ww3.sinaimg.cn/large/b36cd9dbgw1f68iwocywdj20fe05kglm.jpg" alt="使用前"><br><img src="http://ww4.sinaimg.cn/large/b36cd9dbgw1f68ix24fszj20fc05qq31.jpg" alt="使用后"></p>
-<h2 id="使用attributedPlaceholder"><a href="#使用attributedPlaceholder" class="headerlink" title="使用attributedPlaceholder"></a>使用attributedPlaceholder</h2><p>自定义GYLLoginRegisterTextField类，继承自UITextField；实现awakeFromNib()方法，如果使用storyboard，那么修改对应的UITextField的CustomClass为GYLLoginRegisterTextField即可，具体代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"GYLLoginRegisterTextField.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">GYLLoginRegisterTextField</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)awakeFromNib</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.tintColor = [<span class="built_in">UIColor</span> whiteColor];      <span class="comment">//设置光标颜色</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//修改占位符文字颜色</span></span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *attrs = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">    attrs[<span class="built_in">NSForegroundColorAttributeName</span>] = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    <span class="keyword">self</span>.attributedPlaceholder = [[<span class="built_in">NSAttributedString</span> alloc] initWithString:<span class="keyword">self</span>.placeholder attributes:attrs];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="重写drawPlaceholderInRect方法-1"><a href="#重写drawPlaceholderInRect方法-1" class="headerlink" title="重写drawPlaceholderInRect方法"></a>重写drawPlaceholderInRect方法</h2><p>与方法一同样，自定义GYLLoginRegisterTextField，继承自UITextField，重写drawPlaceholderInRect方法，后续相同，代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"GYLLoginRegisterTextField.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">GYLLoginRegisterTextField</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)awakeFromNib</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.tintColor = [<span class="built_in">UIColor</span> whiteColor];      <span class="comment">//设置光标颜色</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)drawPlaceholderInRect:(<span class="built_in">CGRect</span>)rect</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *attrs = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">    attrs[<span class="built_in">NSForegroundColorAttributeName</span>] = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    attrs[<span class="built_in">NSFontAttributeName</span>] = <span class="keyword">self</span>.font;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//画出占位符</span></span><br><span class="line">    <span class="built_in">CGRect</span> placeholderRect;</span><br><span class="line">    placeholderRect.size.width = rect.size.width;</span><br><span class="line">    placeholderRect.size.height = rect.size.height;</span><br><span class="line">    placeholderRect.origin.x = <span class="number">0</span>;</span><br><span class="line">    placeholderRect.origin.y = (rect.size.height - <span class="keyword">self</span>.font.lineHeight) * <span class="number">0.5</span>;</span><br><span class="line">    [<span class="keyword">self</span>.placeholder drawInRect:placeholderRect withAttributes:attrs];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//或者</span></span><br><span class="line">    <span class="comment">/*</span><br><span class="line">    CGPoint placeholderPoint = CGPointMake(0, (rect.size.height - self.font.lineHeight) * 0.5);</span><br><span class="line">    [self.placeholder drawAtPoint:placeholderPoint withAttributes:attrs];</span><br><span class="line">    */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="修改UITextField内部placeholderLaber的颜色-1"><a href="#修改UITextField内部placeholderLaber的颜色-1" class="headerlink" title="修改UITextField内部placeholderLaber的颜色"></a>修改UITextField内部placeholderLaber的颜色</h2><p>使用KVC机制，找到UITextField内部的修改站位文字颜色的属性：<strong>placeholderLaber.textColor</strong>，代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"GYLLoginRegisterTextField.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">GYLLoginRegisterTextField</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)awakeFromNib</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.tintColor = [<span class="built_in">UIColor</span> whiteColor];      <span class="comment">//设置光标颜色</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//修改占位符文字颜色</span></span><br><span class="line">    [<span class="keyword">self</span> setValue:[<span class="built_in">UIColor</span> grayColor] forKeyPath<span class="string">@"placeholderLaber.textColor"</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>第三种方法比较简单，建议可以将此封装起来：扩展UITextField，新建category，添加placeholderColor属性，使用KVC重写set和get方法。有需要的同学可以<a href="mailto:reclusegu1218@gmail.com" target="_blank" rel="external">邮箱</a>联系。监听UITextField事件，可查看下一篇<a href="">文章</a>。</p>
+<p>注意：在执行<code>pod install</code>之后会生成<code>Podfile.lock</code>文件，在官方文档中提到<code>Podfile.lock</code>应该放到按本控制中，因为<code>Podfile.lock</code>会锁定当前各依赖库的版本，之后如果多次执行<code>pod install</code>不会更改版本，<code>pod update</code>才会改Podfile.lock了。于是在多人协作的时候，能<code>防止第三方库升级时造成大家各自的第三方库版本不一致</code>，详情请查看<a href="http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control" target="_blank" rel="external">官方文档</a>。</p>
 </blockquote>
 
       
@@ -292,13 +316,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/07/27/Modify-UITextField-Placeholder-Font-Color/">修改UITextField占位符字体颜色的几个方法</a></p>
+        <p><span>本文标题:</span><a href="/2016/08/09/CocoaPods-installation-and-using/">CocoaPods安装与使用</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
-        <p><span>发布时间:</span>2016-07-27, 13:31:38</p>
-        <p><span>最后更新:</span>2016-08-03, 09:24:02</p>
+        <p><span>发布时间:</span>2016-08-09, 13:33:39</p>
+        <p><span>最后更新:</span>2016-08-09, 13:36:27</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/07/27/Modify-UITextField-Placeholder-Font-Color/" title="修改UITextField占位符字体颜色的几个方法">http://yoursite.com/2016/07/27/Modify-UITextField-Placeholder-Font-Color/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/07/27/Modify-UITextField-Placeholder-Font-Color/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/08/09/CocoaPods-installation-and-using/" title="CocoaPods安装与使用">http://yoursite.com/2016/08/09/CocoaPods-installation-and-using/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/09/CocoaPods-installation-and-using/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -310,16 +334,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/07/27/Listen-to-UITextField-Event-Conclusion/">
-                    UITextFile监听事件的几种方法总结
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/07/24/Machine-Learning-NG-Week-2-Programming/">
-                    Machine Learning NG Week 2 Program Code
+                <a href="/2016/08/03/Node-version-Error-in-Hexo/">
+                    Hexo使用的Node版本的问题
                 </a>
             </div>
         
@@ -330,7 +348,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用attributedPlaceholder属性"><span class="toc-number">1.</span> <span class="toc-text">使用attributedPlaceholder属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写drawPlaceholderInRect方法"><span class="toc-number">2.</span> <span class="toc-text">重写drawPlaceholderInRect方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改UITextField内部placeholderLaber的颜色"><span class="toc-number">3.</span> <span class="toc-text">修改UITextField内部placeholderLaber的颜色</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用attributedPlaceholder"><span class="toc-number"></span> <span class="toc-text">使用attributedPlaceholder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重写drawPlaceholderInRect方法-1"><span class="toc-number"></span> <span class="toc-text">重写drawPlaceholderInRect方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改UITextField内部placeholderLaber的颜色-1"><span class="toc-number"></span> <span class="toc-text">修改UITextField内部placeholderLaber的颜色</span></a>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CocoaPods-安装"><span class="toc-number">1.</span> <span class="toc-text">CocoaPods 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CocoaPods-使用"><span class="toc-number">2.</span> <span class="toc-text">CocoaPods 使用</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -387,7 +405,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"修改UITextField占位符字体颜色的几个方法　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"CocoaPods安装与使用　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -403,7 +421,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/07/27/Modify-UITextField-Placeholder-Font-Color/" data-title="修改UITextField占位符字体颜色的几个方法" data-url="http://yoursite.com/2016/07/27/Modify-UITextField-Placeholder-Font-Color/"></div>
+    <div class="ds-thread" data-thread-key="2016/08/09/CocoaPods-installation-and-using/" data-title="CocoaPods安装与使用" data-url="http://yoursite.com/2016/08/09/CocoaPods-installation-and-using/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -427,15 +445,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/27/Listen-to-UITextField-Event-Conclusion/" title="上一篇: UITextFile监听事件的几种方法总结">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/07/24/Machine-Learning-NG-Week-2-Programming/" title="下一篇: Machine Learning NG Week 2 Program Code">
+            <a href="/2016/08/03/Node-version-Error-in-Hexo/" title="下一篇: Hexo使用的Node版本的问题">
                 <i class="fa fa-angle-right"></i>
             </a>
         
