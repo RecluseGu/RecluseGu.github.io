@@ -3,27 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>CocoaPods安装与使用 | Crazy Guge</title>
+  <title>使用自定义Cell完成清除缓存功能 | Crazy Guge</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在我们项目开发的过程中，时不时的会用到第三方库，并且在一个项目中会用到多个第三方库，于是我们可以使用CocoaPods来安装和管理第三方库，这使我们在整个开发环境中对第三方库的版本管理非常方便。 CocoaPods 的原理是将所有的第三方库都放到另一个名为 Pods 项目中，并且让主项目依赖 Pods 项目，于是，源码管理工作都从主项目移到了 Pods 项目中。本文中我将介绍如何安装和使用Coco">
+  <meta name="description" content="【秋天该很好 你若尚在场】">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CocoaPods安装与使用">
-<meta property="og:url" content="http://yoursite.com/2016/08/09/CocoaPods-installation-and-using/index.html">
+<meta property="og:title" content="使用自定义Cell完成清除缓存功能">
+<meta property="og:url" content="http://yoursite.com/2016/09/22/Clear-Cache-with-Customized-Cell/index.html">
 <meta property="og:site_name" content="Crazy Guge">
-<meta property="og:description" content="在我们项目开发的过程中，时不时的会用到第三方库，并且在一个项目中会用到多个第三方库，于是我们可以使用CocoaPods来安装和管理第三方库，这使我们在整个开发环境中对第三方库的版本管理非常方便。 CocoaPods 的原理是将所有的第三方库都放到另一个名为 Pods 项目中，并且让主项目依赖 Pods 项目，于是，源码管理工作都从主项目移到了 Pods 项目中。本文中我将介绍如何安装和使用Coco">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-80742f8aa900dcce.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-342db580c87dc40e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-955a78f4a9ecedb5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-df64bea95768d4d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-d1797a71263317a3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-f1479690d64b6b3b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-aea918dd84cf0267.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-d77edefa0b84aa12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-08-09T05:36:27.000Z">
+<meta property="og:description" content="【秋天该很好 你若尚在场】">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-f4f5c48c89605de1.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-e68723c24ad4ae63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-0a7232472b9e92f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-4f668603ffd84adf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-09-22T06:12:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CocoaPods安装与使用">
-<meta name="twitter:description" content="在我们项目开发的过程中，时不时的会用到第三方库，并且在一个项目中会用到多个第三方库，于是我们可以使用CocoaPods来安装和管理第三方库，这使我们在整个开发环境中对第三方库的版本管理非常方便。 CocoaPods 的原理是将所有的第三方库都放到另一个名为 Pods 项目中，并且让主项目依赖 Pods 项目，于是，源码管理工作都从主项目移到了 Pods 项目中。本文中我将介绍如何安装和使用Coco">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2013105-80742f8aa900dcce.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="使用自定义Cell完成清除缓存功能">
+<meta name="twitter:description" content="【秋天该很好 你若尚在场】">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2013105-f4f5c48c89605de1.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
   
@@ -231,11 +227,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-CocoaPods-installation-and-using" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Clear-Cache-with-Customized-Cell" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/08/09/CocoaPods-installation-and-using/" class="article-date">
-      <time datetime="2016-08-09T05:33:39.000Z" itemprop="datePublished">2016-08-09</time>
+      <a href="/2016/09/22/Clear-Cache-with-Customized-Cell/" class="article-date">
+      <time datetime="2016-09-22T06:06:33.000Z" itemprop="datePublished">2016-09-22</time>
 </a>
     </div>
   
@@ -248,7 +244,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CocoaPods安装与使用
+      使用自定义Cell完成清除缓存功能
     </h1>
   
 
@@ -263,7 +259,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CocoaPods/">CocoaPods</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableVIewCell/">UITableVIewCell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/清除缓存/">清除缓存</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -273,41 +269,29 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>在我们项目开发的过程中，时不时的会用到第三方库，并且在一个项目中会用到多个第三方库，于是我们可以使用CocoaPods来安装和管理第三方库，这使我们在整个开发环境中对第三方库的版本管理非常方便。 CocoaPods 的原理是将所有的第三方库都放到另一个名为 Pods 项目中，并且让主项目依赖 Pods 项目，于是，源码管理工作都从主项目移到了 Pods 项目中。本文中我将介绍如何安装和使用CocoaPods。</p>
-<a id="more"></a>
-<h2 id="CocoaPods-安装"><a href="#CocoaPods-安装" class="headerlink" title="CocoaPods 安装"></a>CocoaPods 安装</h2><p>1.升级Ruby环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem update --system</span><br></pre></td></tr></table></figure>
-<p>环境升级的过程比较慢，静心等待吧（不要吐槽我的网速渣）！</p>
-<p>2.使用淘宝的RubyGems镜像来代替官方版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources --remove https://rubygems.org/</span><br><span class="line">//等到移除后再敲入以下命令</span><br><span class="line">$ gem sources -a https://ruby.taobao.org/</span><br></pre></td></tr></table></figure>
-<p>验证Ruby镜像只有taobao，使用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem sources -l</span><br></pre></td></tr></table></figure>
-<p>出现以下信息说明安装成功，具体可以查看官方文档<a href="https://ruby.taobao.org/" target="_blank" rel="external">https://ruby.taobao.org</a>：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-80742f8aa900dcce.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>3.安装CocoaPods</p>
-<ul>
-<li>系统在10.11以下：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install cocoapods</span><br></pre></td></tr></table></figure>
-<ul>
-<li>系统在10.11以后</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install -n /usr/local/bin cocoapods</span><br><span class="line">//执行完后</span><br><span class="line">$ sudo xcode-select --switch /Applications/Xcode.app</span><br></pre></td></tr></table></figure>
-<p>在安装时，可能会出现错误，提示需要2.2.2以上版本Ruby，我在安装时就碰到这个错误，若遇到同样问题，请参考<a href="http://www.jianshu.com/p/a575aff064e3" target="_blank" rel="external">MAC OS Ruby升级</a>。</p>
-<p>输入以下完成安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod setup</span><br></pre></td></tr></table></figure>
-<p><code>注意：</code><br>在执行<code>pod setup</code>的时候会输出<code>Setting up CocoaPods master repo</code>，文件比较大，下载慢，等待的时间会非常久，还可能会出现错误：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-342db580c87dc40e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>执行<code>pod setup</code>其实是CocoaPods会将pod spec索引文件信息更新到~/.cocoapods目录下，可以通过<code>du -sh *</code>查看下载进度。有一位大神在国内的gitcafe、oschina上建立了CocoaPods的索引库镜像，因此可以使用国内的镜像，这样会快很多，执行步骤如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pod repo remove master</span><br><span class="line">$ pod repo add master https://gitcafe.com/akuandev/Specs.git</span><br><span class="line">$ pod repo update</span><br></pre></td></tr></table></figure></p>
-<p>将<code>https://gitcafe.com/akuandev/Specs.git</code>替换成<code>http://git.oschina.net/akuandev/Specs.git</code>就是oschina上的索引库镜像。</p>
-<p>以下界面说明setup成功：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-955a78f4a9ecedb5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<h2 id="CocoaPods-使用"><a href="#CocoaPods-使用" class="headerlink" title="CocoaPods 使用"></a>CocoaPods 使用</h2><p>1.使用search搜索类库名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod search AFNetworking</span><br></pre></td></tr></table></figure></p>
-<p>效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-df64bea95768d4d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>2.新建项目CocoaPodsSample，切换到项目根目录，并建立Podfile文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &quot;your project home&quot;</span><br><span class="line">$ touch Podfile</span><br></pre></td></tr></table></figure></p>
-<p>效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-d1797a71263317a3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>3.使用vim编辑并保存pod file<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim Podfile</span><br></pre></td></tr></table></figure></p>
-<p>输入以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line">platform :ios, &apos;9.0&apos;</span><br><span class="line"></span><br><span class="line">target &apos;CocoaPodsSample&apos; do</span><br><span class="line">pod &apos;AFNetworking&apos;, &apos;~&gt; 3.1&apos;</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
-<p>4.下载安装AFNetworking<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod install</span><br></pre></td></tr></table></figure></p>
-<p>安装成功后：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-f1479690d64b6b3b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2013105-aea918dd84cf0267.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>5.双击<code>CocoaPodsSample.xcworkspace</code>打开工程，会发现AFNetworking已经安装好了，在ViewController中引入<code>#import &quot;AFNetworking&quot;</code>，再编译，不出错的话就可以使用啦。<br><img src="http://upload-images.jianshu.io/upload_images/2013105-d77edefa0b84aa12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<blockquote>
-<p>注意：在执行<code>pod install</code>之后会生成<code>Podfile.lock</code>文件，在官方文档中提到<code>Podfile.lock</code>应该放到按本控制中，因为<code>Podfile.lock</code>会锁定当前各依赖库的版本，之后如果多次执行<code>pod install</code>不会更改版本，<code>pod update</code>才会改Podfile.lock了。于是在多人协作的时候，能<code>防止第三方库升级时造成大家各自的第三方库版本不一致</code>，详情请查看<a href="http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control" target="_blank" rel="external">官方文档</a>。</p>
+        <p>【秋天该很好 你若尚在场】<br><a id="more"></a><br>绝大多数应用中都存在着清楚缓存的功能，形形色色，各有千秋，现为大家介绍一种最基础的清除缓存的方法。清除缓存基本上都是在设置界面的某一个Cell，于是我们可以把清除缓存封装在某一个自定义Cell中，如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-f4f5c48c89605de1.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="清除缓存"></p>
+<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><blockquote>
+<p>使用注意：过程中需要用到第三方库，请提前安装好：SDWebImage、SVProgressHUD。</p>
 </blockquote>
+<h3 id="1-创建自定义Cell，命名为GYLClearCacheCell"><a href="#1-创建自定义Cell，命名为GYLClearCacheCell" class="headerlink" title="1. 创建自定义Cell，命名为GYLClearCacheCell"></a>1. 创建自定义Cell，命名为GYLClearCacheCell</h3><p>重写<code>initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier</code>方法，设置基本内容，如文字等等；主要代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithStyle:(<span class="built_in">UITableViewCellStyle</span>)style reuseIdentifier:(<span class="built_in">NSString</span> *)reuseIdentifier</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> initWithStyle:style reuseIdentifier:reuseIdentifier]) &#123;</span><br><span class="line">       <span class="comment">// 设置加载视图</span></span><br><span class="line">        <span class="built_in">UIActivityIndicatorView</span> *loadingView = [[<span class="built_in">UIActivityIndicatorView</span> alloc] initWithActivityIndicatorStyle:<span class="built_in">UIActivityIndicatorViewStyleGray</span>];</span><br><span class="line">        [loadingView startAnimating];</span><br><span class="line">        <span class="keyword">self</span>.accessoryView = loadingView;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置文字</span></span><br><span class="line">        <span class="keyword">self</span>.textLabel.text = <span class="string">@"清楚缓存"</span>;</span><br><span class="line">        <span class="keyword">self</span>.detailTextLabel.text = <span class="string">@"正在计算"</span>; </span><br><span class="line">  &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-计算缓存文件大小"><a href="#2-计算缓存文件大小" class="headerlink" title="2. 计算缓存文件大小"></a>2. 计算缓存文件大小</h3><p>缓存文件包括两部分，一部分是使用SDWebImage缓存的内容，其次可能存在自定义的文件夹中的内容（视频，音频等内容），于是计算要分两部分，主要代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> size =</span><br><span class="line">[<span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>).lastObject stringByAppendingPathComponent:<span class="string">@"CustomFile"</span>].fileSize;</span><br><span class="line"><span class="comment">//fileSize是封装在Category中的。</span></span><br><span class="line"></span><br><span class="line">size += [SDImageCache sharedImageCache].getSize;   <span class="comment">//CustomFile + SDWebImage 缓存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//设置文件大小格式</span></span><br><span class="line"><span class="built_in">NSString</span> sizeText = <span class="literal">nil</span>;</span><br><span class="line"><span class="keyword">if</span> (size &gt;= pow(<span class="number">10</span>, <span class="number">9</span>)) &#123;</span><br><span class="line">  sizeText = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%.2fGB"</span>, size / pow(<span class="number">10</span>, <span class="number">9</span>)];</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (size &gt;= pow(<span class="number">10</span>, <span class="number">6</span>)) &#123;</span><br><span class="line">  sizeText = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%.2fMB"</span>, size / pow(<span class="number">10</span>, <span class="number">6</span>)];</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (size &gt;= pow(<span class="number">10</span>, <span class="number">3</span>)) &#123;</span><br><span class="line">  sizeText = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%.2fKB"</span>, size / pow(<span class="number">10</span>, <span class="number">3</span>)];</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">  sizeText = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%zdB"</span>, size];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上述两个方法都是在主线程中完成的，如果缓存文件大小非常大的话，计算时间会比较长，会导致应用卡死，考虑到该问题，因此需要将上述代码放到子线程中完成。</p>
+</blockquote>
+<h3 id="3-添加手势监听"><a href="#3-添加手势监听" class="headerlink" title="3. 添加手势监听"></a>3. 添加手势监听</h3><p>对于监听点击Cell可以使用代理也可以使用手势监听，为了将完整的功能封装到自定义Cell中，于是我们使用手势监听的方法来监听点击Cell。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计算完成后，回到主线程继续处理，显示文件大小，除去加载视图，显示箭头，添加点击事件</span></span><br><span class="line"><span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                </span><br><span class="line">  <span class="keyword">self</span>.detailTextLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,sizeText];</span><br><span class="line">  <span class="keyword">self</span>.accessoryView = <span class="literal">nil</span>;</span><br><span class="line">  <span class="keyword">self</span>.accessoryType = <span class="built_in">UITableViewCellAccessoryDisclosureIndicator</span>;</span><br><span class="line">                </span><br><span class="line">  [<span class="keyword">self</span> addGestureRecognizer:[[<span class="built_in">UITapGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(clearCacheClick)]];          </span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-清除缓存"><a href="#4-清除缓存" class="headerlink" title="4. 清除缓存"></a>4. 清除缓存</h3><p>清除缓存也是分为两部分，一是清除SDWebImage的缓存，二是清除自定义文件缓存，主要代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)clearCacheClick</span><br><span class="line">&#123;</span><br><span class="line">    [SVProgressHUD showWithStatus:<span class="string">@"正在清除缓存···"</span>];</span><br><span class="line">    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];</span><br><span class="line">    </span><br><span class="line">    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^&#123;</span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">           </span><br><span class="line">            <span class="built_in">NSFileManager</span> *mgr = [<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line">            [mgr removeItemAtPath:GYLCustomFile error:<span class="literal">nil</span>];</span><br><span class="line">            [mgr createDirectoryAtPath:GYLCustomFile withIntermediateDirectories:<span class="literal">YES</span> attributes:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">               </span><br><span class="line">                [SVProgressHUD dismiss];</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 设置文字</span></span><br><span class="line">                <span class="keyword">self</span>.detailTextLabel.text = <span class="literal">nil</span>;               </span><br><span class="line">            &#125;);         </span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意点：SDWebImage清除缓存是在子线程中进行的，清除自定义文件内容应该也放在子线程中（删除大文件可能比较耗时），为了保证两者不冲突，可以将删除自定义文件内容放在SDWebImage缓存清除完毕之后进行，然后再回到主线程操作。</p>
+</blockquote>
+<h3 id="5-其他注意点"><a href="#5-其他注意点" class="headerlink" title="5. 其他注意点"></a>5. 其他注意点</h3><blockquote>
+<p>a. 在计算文件大小过程中应该是不允许点击Cell的，如果有设置Cell的didSelectRowAtIndexPath方法，那么会导致手势监听不能使用。于是需要在计算时不能点击Cell。<br>b. 设置userInteractionEnabled=NO应放在设置文字之后，否则textLabel将显示为灰色。<br>c. 当计算文件大小没有结束的时，这个时候点击返回，自定义Cell不会被销毁，他会执行完剩下的代码，可以使用dealloc方法来验证，在此情况下，可以使用弱引用的self来解决。<br>d. 当设置界面的cell比较多时，如果还在计算缓存大小时，清除缓存的cell从视图中消失，那么加载视图动画就会被停止，当返回到清除缓存cell时，看不到加载动画。解决方案两种方法：一个是在cell创建的代理方法中重新开启动画；另一个是封装到layoutSubviews方法中。</p>
+</blockquote>
+<h3 id="6-效果"><a href="#6-效果" class="headerlink" title="6. 效果"></a>6. 效果</h3><p><img src="http://upload-images.jianshu.io/upload_images/2013105-e68723c24ad4ae63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="计算文件大小"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2013105-0a7232472b9e92f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="正在清除缓存"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2013105-4f668603ffd84adf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="清除完毕"></p>
+<p>完整代码：<br><a href="https://github.com/RecluseGu/iOS-Coding/blob/master/Category/NSString/NSString%2BGYLExtension.m" target="_blank" rel="external">fileSize Category</a><br><a href="https://github.com/RecluseGu/iOS-Coding/blob/master/Function/Cell/GYLClearCacheCell.m" target="_blank" rel="external">GYLClearCacheCell</a></p>
 
       
     </div>
@@ -316,13 +300,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/08/09/CocoaPods-installation-and-using/">CocoaPods安装与使用</a></p>
+        <p><span>本文标题:</span><a href="/2016/09/22/Clear-Cache-with-Customized-Cell/">使用自定义Cell完成清除缓存功能</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
-        <p><span>发布时间:</span>2016-08-09, 13:33:39</p>
-        <p><span>最后更新:</span>2016-08-09, 13:36:27</p>
+        <p><span>发布时间:</span>2016-09-22, 14:06:33</p>
+        <p><span>最后更新:</span>2016-09-22, 14:12:05</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/08/09/CocoaPods-installation-and-using/" title="CocoaPods安装与使用">http://yoursite.com/2016/08/09/CocoaPods-installation-and-using/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/08/09/CocoaPods-installation-and-using/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/09/22/Clear-Cache-with-Customized-Cell/" title="使用自定义Cell完成清除缓存功能">http://yoursite.com/2016/09/22/Clear-Cache-with-Customized-Cell/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/09/22/Clear-Cache-with-Customized-Cell/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -334,16 +318,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/08/09/Update-Ruby-in-MacOS/">
-                    Mac OS 中升级Ruby
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/08/03/Node-version-Error-in-Hexo/">
-                    Hexo使用的Node版本的问题
+                <a href="/2016/08/09/Update-Ruby-in-MacOS/">
+                    Mac OS 中升级Ruby
                 </a>
             </div>
         
@@ -354,7 +332,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CocoaPods-安装"><span class="toc-number">1.</span> <span class="toc-text">CocoaPods 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CocoaPods-使用"><span class="toc-number">2.</span> <span class="toc-text">CocoaPods 使用</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#具体步骤"><span class="toc-number">1.</span> <span class="toc-text">具体步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-创建自定义Cell，命名为GYLClearCacheCell"><span class="toc-number">1.1.</span> <span class="toc-text">1. 创建自定义Cell，命名为GYLClearCacheCell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-计算缓存文件大小"><span class="toc-number">1.2.</span> <span class="toc-text">2. 计算缓存文件大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-添加手势监听"><span class="toc-number">1.3.</span> <span class="toc-text">3. 添加手势监听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-清除缓存"><span class="toc-number">1.4.</span> <span class="toc-text">4. 清除缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-其他注意点"><span class="toc-number">1.5.</span> <span class="toc-text">5. 其他注意点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-效果"><span class="toc-number">1.6.</span> <span class="toc-text">6. 效果</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -411,7 +389,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"CocoaPods安装与使用　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"使用自定义Cell完成清除缓存功能　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -427,7 +405,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/08/09/CocoaPods-installation-and-using/" data-title="CocoaPods安装与使用" data-url="http://yoursite.com/2016/08/09/CocoaPods-installation-and-using/"></div>
+    <div class="ds-thread" data-thread-key="2016/09/22/Clear-Cache-with-Customized-Cell/" data-title="使用自定义Cell完成清除缓存功能" data-url="http://yoursite.com/2016/09/22/Clear-Cache-with-Customized-Cell/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -451,15 +429,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/08/09/Update-Ruby-in-MacOS/" title="上一篇: Mac OS 中升级Ruby">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/08/03/Node-version-Error-in-Hexo/" title="下一篇: Hexo使用的Node版本的问题">
+            <a href="/2016/08/09/Update-Ruby-in-MacOS/" title="下一篇: Mac OS 中升级Ruby">
                 <i class="fa fa-angle-right"></i>
             </a>
         
