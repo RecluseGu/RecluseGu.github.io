@@ -11,15 +11,15 @@
 <meta property="og:url" content="http://yoursite.com/2016/09/22/Clear-Cache-with-Customized-Cell/index.html">
 <meta property="og:site_name" content="Crazy Guge">
 <meta property="og:description" content="【秋天该很好 你若尚在场】">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-f4f5c48c89605de1.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-e68723c24ad4ae63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-0a7232472b9e92f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2013105-4f668603ffd84adf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-09-22T06:12:05.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b36cd9dbgw1f8ztom7vw9j203y070mx5.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b36cd9dbgw1f8ztpwrbu4j209g0hdaab.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/b36cd9dbgw1f8ztql7ulej209g0hdt8z.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/b36cd9dbgw1f8ztr0jinxj209g0hdt8w.jpg">
+<meta property="og:updated_time" content="2016-10-21T05:27:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用自定义Cell完成清除缓存功能">
 <meta name="twitter:description" content="【秋天该很好 你若尚在场】">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2013105-f4f5c48c89605de1.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/b36cd9dbgw1f8ztom7vw9j203y070mx5.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
   
@@ -269,7 +269,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>【秋天该很好 你若尚在场】<br><a id="more"></a><br>绝大多数应用中都存在着清楚缓存的功能，形形色色，各有千秋，现为大家介绍一种最基础的清除缓存的方法。清除缓存基本上都是在设置界面的某一个Cell，于是我们可以把清除缓存封装在某一个自定义Cell中，如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/2013105-f4f5c48c89605de1.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="清除缓存"></p>
+        <p>【秋天该很好 你若尚在场】<br><a id="more"></a><br>绝大多数应用中都存在着清楚缓存的功能，形形色色，各有千秋，现为大家介绍一种最基础的清除缓存的方法。清除缓存基本上都是在设置界面的某一个Cell，于是我们可以把清除缓存封装在某一个自定义Cell中，如下图所示：<br><img src="http://ww1.sinaimg.cn/large/b36cd9dbgw1f8ztom7vw9j203y070mx5.jpg" alt="清除缓存"></p>
 <h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><blockquote>
 <p>使用注意：过程中需要用到第三方库，请提前安装好：SDWebImage、SVProgressHUD。</p>
 </blockquote>
@@ -288,9 +288,9 @@
 <h3 id="5-其他注意点"><a href="#5-其他注意点" class="headerlink" title="5. 其他注意点"></a>5. 其他注意点</h3><blockquote>
 <p>a. 在计算文件大小过程中应该是不允许点击Cell的，如果有设置Cell的didSelectRowAtIndexPath方法，那么会导致手势监听不能使用。于是需要在计算时不能点击Cell。<br>b. 设置userInteractionEnabled=NO应放在设置文字之后，否则textLabel将显示为灰色。<br>c. 当计算文件大小没有结束的时，这个时候点击返回，自定义Cell不会被销毁，他会执行完剩下的代码，可以使用dealloc方法来验证，在此情况下，可以使用弱引用的self来解决。<br>d. 当设置界面的cell比较多时，如果还在计算缓存大小时，清除缓存的cell从视图中消失，那么加载视图动画就会被停止，当返回到清除缓存cell时，看不到加载动画。解决方案两种方法：一个是在cell创建的代理方法中重新开启动画；另一个是封装到layoutSubviews方法中。</p>
 </blockquote>
-<h3 id="6-效果"><a href="#6-效果" class="headerlink" title="6. 效果"></a>6. 效果</h3><p><img src="http://upload-images.jianshu.io/upload_images/2013105-e68723c24ad4ae63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="计算文件大小"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2013105-0a7232472b9e92f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="正在清除缓存"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2013105-4f668603ffd84adf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="清除完毕"></p>
+<h3 id="6-效果"><a href="#6-效果" class="headerlink" title="6. 效果"></a>6. 效果</h3><p><img src="http://ww1.sinaimg.cn/large/b36cd9dbgw1f8ztpwrbu4j209g0hdaab.jpg" alt="计算文件大小"></p>
+<p><img src="http://ww1.sinaimg.cn/large/b36cd9dbgw1f8ztql7ulej209g0hdt8z.jpg" alt="正在清除缓存"></p>
+<p><img src="http://ww3.sinaimg.cn/large/b36cd9dbgw1f8ztr0jinxj209g0hdt8w.jpg" alt="清除完毕"></p>
 <p>完整代码：<br><a href="https://github.com/RecluseGu/iOS-Coding/blob/master/Category/NSString/NSString%2BGYLExtension.m" target="_blank" rel="external">fileSize Category</a><br><a href="https://github.com/RecluseGu/iOS-Coding/blob/master/Function/Cell/GYLClearCacheCell.m" target="_blank" rel="external">GYLClearCacheCell</a></p>
 
       
@@ -303,7 +303,7 @@
         <p><span>本文标题:</span><a href="/2016/09/22/Clear-Cache-with-Customized-Cell/">使用自定义Cell完成清除缓存功能</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
         <p><span>发布时间:</span>2016-09-22, 14:06:33</p>
-        <p><span>最后更新:</span>2016-09-22, 14:12:05</p>
+        <p><span>最后更新:</span>2016-10-21, 13:27:41</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/09/22/Clear-Cache-with-Customized-Cell/" title="使用自定义Cell完成清除缓存功能">http://yoursite.com/2016/09/22/Clear-Cache-with-Customized-Cell/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/09/22/Clear-Cache-with-Customized-Cell/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
