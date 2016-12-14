@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/12/14/JGit-A-Java-API-for-Git/index.html">
 <meta property="og:site_name" content="Crazy Guge">
 <meta property="og:description" content="【为何旧知己，在最后变不到老友。来年陌生的，是昨日最亲的某某。–《最佳损友》】">
-<meta property="og:updated_time" content="2016-12-14T02:18:43.000Z">
+<meta property="og:updated_time" content="2016-12-14T07:16:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JGit--实现Git命令操作的Java API">
 <meta name="twitter:description" content="【为何旧知己，在最后变不到老友。来年陌生的，是昨日最亲的某某。–《最佳损友》】">
@@ -271,8 +271,7 @@
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>与小伙伴们讨论了下，是不是可以通过代码仓库来解决问题，于是上网找了找，发现Git操作是可以用JGit这个API来实现的，于是就选择了让用户直接给一个Github Repository的链接，不仅能让系统自动下载代码，还省去了解压步骤。</p>
 <p>###JGit<br>JGit 提供了一个Git 命令的Java API，例如，你可以在 JGit 里面用<br>git.commit().setMessage( “My first commit” ).call();<br> 代替<br>git commit -m “First commit”</p>
 <p>JGit 命令都有一个 call() 方法，在命令被建立之后用来实际执行它。这些类的命名是在各自的 Git 命令后加上后缀命令。虽然有些命令提供一个公共构造函数，还是建议使用 Git 的工厂类来创建命令。</p>
-<p>###JGit示例</p>
-<blockquote>
+<h3 id="JGit示例"><a href="#JGit示例" class="headerlink" title="JGit示例"></a>JGit示例</h3><blockquote>
 <p>Java实现<code>git clone</code>操作，参考代码如下：</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> org.eclipse.jgit.api.CloneCommand;</span><br><span class="line"><span class="keyword">import</span> org.eclipse.jgit.api.Git;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JGitUtil</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">cloneRepository</span><span class="params">(String url,String localPath)</span></span><br><span class="line"> </span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">   System.out.println(<span class="string">"开始下载......"</span>);</span><br><span class="line">   </span><br><span class="line">   CloneCommand cc = Git.cloneRepository().setURI(url);</span><br><span class="line">   cc.setDirectory(<span class="keyword">new</span> File(localPath)).call();</span><br><span class="line">   </span><br><span class="line">   System.out.println(<span class="string">"下载完成......"</span>);</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">  &#125;<span class="keyword">catch</span>(Exception e)</span><br><span class="line">  &#123;</span><br><span class="line">   e.printStackTrace();</span><br><span class="line">   <span class="keyword">return</span> <span class="string">"error"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span><br><span class="line"> </span>&#123;</span><br><span class="line">  String localPath = <span class="string">"/Users/XXX/Desktop/GitTest"</span>;</span><br><span class="line">  String url = <span class="string">"https://github.com/XXX/python3-webapp.git"</span>;</span><br><span class="line">  </span><br><span class="line">  cloneRepository(url,localPath);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -291,7 +290,7 @@
         <p><span>本文标题:</span><a href="/2016/12/14/JGit-A-Java-API-for-Git/">JGit--实现Git命令操作的Java API</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
         <p><span>发布时间:</span>2016-12-14, 10:13:27</p>
-        <p><span>最后更新:</span>2016-12-14, 10:18:43</p>
+        <p><span>最后更新:</span>2016-12-14, 15:16:58</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/12/14/JGit-A-Java-API-for-Git/" title="JGit--实现Git命令操作的Java API">http://yoursite.com/2016/12/14/JGit-A-Java-API-for-Git/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/12/14/JGit-A-Java-API-for-Git/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -320,7 +319,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">1.</span> <span class="toc-text">解决方案</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">1.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JGit示例"><span class="toc-number">2.</span> <span class="toc-text">JGit示例</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
