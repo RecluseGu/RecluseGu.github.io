@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  
+  <title>JGit--实现Git命令操作的Java API | Crazy Guge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="【为何旧知己，在最后变不到老友。来年陌生的，是昨日最亲的某某。–《最佳损友》】">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JGit--实现Git命令操作的Java API">
+<meta property="og:url" content="http://yoursite.com/2016/12/14/JGit-A-Java-API-for-Git/index.html">
+<meta property="og:site_name" content="Crazy Guge">
+<meta property="og:description" content="【为何旧知己，在最后变不到老友。来年陌生的，是昨日最亲的某某。–《最佳损友》】">
+<meta property="og:updated_time" content="2016-12-14T02:18:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JGit--实现Git命令操作的Java API">
+<meta name="twitter:description" content="【为何旧知己，在最后变不到老友。来年陌生的，是昨日最亲的某某。–《最佳损友》】">
+  
+    <link rel="alternative" href="/atom.xml" title="Crazy Guge" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+      <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+  
+  
+  
+      <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+      <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+  
+  <script src="//cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.9/clipboard.min.js"></script>
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false,
+          fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+          scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.0.9/scrollreveal.min.js"
+      }
+  </script>
+
+  
+      <script>
+          yiliaConfig.rootUrl = "/";
+      </script>
+  
+
+  
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/head.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Recluse</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">游荡在城市夜空中的代码狗兼萨迷</p>
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:reclusegu1218@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://weibo.com/reclusegu" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/reclusegu" title="GitHub"></a>
+                            
+                                <a class="fa Instagram" target="_blank" href="https://www.instagram.com/reclusegu1992" title="Instagram"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Category/">Category</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CocoaPods/">CocoaPods</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Error/">Error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event/">Event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Font/">Font</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Homebrew/">Homebrew</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IDE/">IDE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/">Node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOM/">OOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCH/">PCH</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Placeholder/">Placeholder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Program-Code/">Program Code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TabBar/">TabBar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UINavigationController/">UINavigationController</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchBar/">UISearchBar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableVIewCell/">UITableVIewCell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITextField/">UITextField</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITextFiled/">UITextFiled</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIView/">UIView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存区域/">内存区域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/垃圾回收/">垃圾回收</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/对象/">对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/清除缓存/">清除缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本更新/">版本更新</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自定义Log/">自定义Log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/颜色/">颜色</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">不要问我是谁，我只是游荡在杭城夜空中的代码狗兼萨迷。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Recluse</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/head.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Recluse</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">游荡在城市夜空中的代码狗兼萨迷</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:reclusegu1218@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="https://weibo.com/reclusegu" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/reclusegu" title="GitHub"></a>
+                            
+                                <a class="fa Instagram" target="_blank" href="https://www.instagram.com/reclusegu1992" title="Instagram"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-JGit-A-Java-API-for-Git" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/14/JGit-A-Java-API-for-Git/" class="article-date">
+      <time datetime="2016-12-14T02:13:27.000Z" itemprop="datePublished">2016-12-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JGit--实现Git命令操作的Java API
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/术业专攻/">术业专攻</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>【为何旧知己，在最后变不到老友。来年陌生的，是昨日最亲的某某。–《最佳损友》】<br><a id="more"></a></p>
+<blockquote>
+<p>问题来源:最近在做一个项目，其中有一块需要用户上传代码到服务器中，然后分析用户所传的代码，传代码最直接的方式就是用户打个包上传，但是后期再分析代码的时候还要代码实现解压上传的代码，操作起来比较复杂。</p>
+</blockquote>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>与小伙伴们讨论了下，是不是可以通过代码仓库来解决问题，于是上网找了找，发现Git操作是可以用JGit这个API来实现的，于是就选择了让用户直接给一个Github Repository的链接，不仅能让系统自动下载代码，还省去了解压步骤。</p>
+<p>###JGit<br>JGit 提供了一个Git 命令的Java API，例如，你可以在 JGit 里面用<br>git.commit().setMessage( “My first commit” ).call();<br> 代替<br>git commit -m “First commit”</p>
+<p>JGit 命令都有一个 call() 方法，在命令被建立之后用来实际执行它。这些类的命名是在各自的 Git 命令后加上后缀命令。虽然有些命令提供一个公共构造函数，还是建议使用 Git 的工厂类来创建命令。</p>
+<p>###JGit示例</p>
+<blockquote>
+<p>Java实现<code>git clone</code>操作，参考代码如下：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> org.eclipse.jgit.api.CloneCommand;</span><br><span class="line"><span class="keyword">import</span> org.eclipse.jgit.api.Git;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JGitUtil</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">cloneRepository</span><span class="params">(String url,String localPath)</span></span><br><span class="line"> </span>&#123;</span><br><span class="line">  <span class="keyword">try</span>&#123;</span><br><span class="line">   System.out.println(<span class="string">"开始下载......"</span>);</span><br><span class="line">   </span><br><span class="line">   CloneCommand cc = Git.cloneRepository().setURI(url);</span><br><span class="line">   cc.setDirectory(<span class="keyword">new</span> File(localPath)).call();</span><br><span class="line">   </span><br><span class="line">   System.out.println(<span class="string">"下载完成......"</span>);</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">  &#125;<span class="keyword">catch</span>(Exception e)</span><br><span class="line">  &#123;</span><br><span class="line">   e.printStackTrace();</span><br><span class="line">   <span class="keyword">return</span> <span class="string">"error"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span><br><span class="line"> </span>&#123;</span><br><span class="line">  String localPath = <span class="string">"/Users/XXX/Desktop/GitTest"</span>;</span><br><span class="line">  String url = <span class="string">"https://github.com/XXX/python3-webapp.git"</span>;</span><br><span class="line">  </span><br><span class="line">  cloneRepository(url,localPath);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意点：在使用JGit这个JAR包时，是依赖其他JAR包的；列举如下：<br>slf4j-api-1.7.9.jar<br>slf4j-log4j12-1.7.9.jar<br>log4j-1.2.17.jar<br>jsch-0.1.54.jar</p>
+</blockquote>
+<p>除了git clone之外，还有很多其他操作，创建一个存储库，从远程获取内容，向历史版本中添加和删除文件，检查历史操作，并最终将更改的文件推回到原始存储库都可以用JGit实现。大家可以参考官网的<a href="http://www.eclipse.org/jgit/" target="_blank" rel="external">API</a>或者<a href="https://www.javacodegeeks.com/2013/11/an-introduction-to-the-jgit-sources.html" target="_blank" rel="external">JGit资源介绍</a>。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/12/14/JGit-A-Java-API-for-Git/">JGit--实现Git命令操作的Java API</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Recluse</a></p>
+        <p><span>发布时间:</span>2016-12-14, 10:13:27</p>
+        <p><span>最后更新:</span>2016-12-14, 10:18:43</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/12/14/JGit-A-Java-API-for-Git/" title="JGit--实现Git命令操作的Java API">http://yoursite.com/2016/12/14/JGit-A-Java-API-for-Git/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/12/14/JGit-A-Java-API-for-Git/　　作者: Recluse" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/09/22/Clear-Cache-with-Customized-Cell/">
+                    使用自定义Cell完成清除缓存功能
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">1.</span> <span class="toc-text">解决方案</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JGit--实现Git命令操作的Java API　| Crazy Guge　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/12/14/JGit-A-Java-API-for-Git/" data-title="JGit--实现Git命令操作的Java API" data-url="http://yoursite.com/2016/12/14/JGit-A-Java-API-for-Git/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"reclusegu"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//reclusegu.github.io/js/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/09/22/Clear-Cache-with-Customized-Cell/" title="下一篇: 使用自定义Cell完成清除缓存功能">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/14/JGit-A-Java-API-for-Git/">JGit--实现Git命令操作的Java API</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/22/Clear-Cache-with-Customized-Cell/">使用自定义Cell完成清除缓存功能</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/Update-Ruby-in-MacOS/">Mac OS 中升级Ruby</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/CocoaPods-installation-and-using/">CocoaPods安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/03/Node-version-Error-in-Hexo/">Hexo使用的Node版本的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/27/Listen-to-UITextField-Event-Conclusion/">UITextFile监听事件的几种方法总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/27/Modify-UITextField-Placeholder-Font-Color/">修改UITextField占位符字体颜色的几个方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/24/Machine-Learning-NG-Week-2-Programming/">Machine Learning NG Week 2 Program Code</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Add-PCH-Profile-in-Project/">在项目中添加PCH文件</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/05/Display-New-Feature-When-APP-Updated/">iOS如何在更新后第一次显示版本新特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/29/Customizing-UISearchBar-with-UITextField/">使用UITextField自定义UISearchBar</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/06/Remove-tabbar-in-UINavigationcontroller/">当push的时候隐藏UINavigationController的TabBar</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/25/Expression-is-not-assignable/">Expression is not assignable</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/25/UIView-Extend-Property/">UIView 扩展x,y,width,height,Size,Origin等属性</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/25/Reading-JVM-Note-IV/">深入理解Java JVM 读书笔记（四）垃圾回收算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/24/Reading-JVM-Note-III/">深入理解Java JVM 读书笔记（三）Java对象“死”了么？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/16/What-a-wonderful-day-20150514/">What a wonderful day-20160514</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/10/Reading-JVM-Note-II/">深入理解Java JVM 读书笔记（二）Java对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/09/Reading-JVM-Note-I/">深入理解Java JVM 读书笔记（一）Java内存区域</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/06/markdown/">Markdown 简介 & 使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/04/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 Recluse
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>   <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
